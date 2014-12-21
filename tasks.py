@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
-from invoke import task, run
+import sys
 
+from invoke import task, run
 
 @task
 def readme(browse=False):
@@ -10,7 +11,12 @@ def readme(browse=False):
 @task
 def publish(test=False):
     """Publish to the cheeseshop."""
+    try:
+        __import__('wheel')
+    except ImportError:
+        print("wheel required. Run `pip install wheel`.")
+        sys.exit(1)
     if test:
-        run('python setup.py register -r test sdist upload -r test')
+        run('python setup.py register -r test sdist bdist_wheel upload -r test')
     else:
-        run("python setup.py register sdist upload")
+        run("python setup.py register sdist bdist_wheel upload")
