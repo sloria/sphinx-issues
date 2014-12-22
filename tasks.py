@@ -4,6 +4,11 @@ import sys
 from invoke import task, run
 
 @task
+def test():
+    """Run the tests."""
+    run('py.test', echo=True, pty=True)
+
+@task
 def readme(browse=False):
     run('rst2html.py README.rst > README.html')
 
