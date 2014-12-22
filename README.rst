@@ -2,7 +2,12 @@
 sphinx-issues
 =============
 
-A Sphinx extension for linking to your project's issue tracker.
+A Sphinx extension for linking to your project's issue tracker. Includes roles for linking to both issues and user profiles, with built-in support for GitHub (though this works with other services).
+
+Example
+*******
+
+For an example usage, check out `marshmallow's changelog <http://marshmallow.readthedocs.org/en/latest/changelog.html#changelog>`_, which makes use of the roles in this library.
 
 Installation and Configuration
 ******************************
@@ -38,6 +43,13 @@ Use the ``:issue:`` role in your docs like so:
     See issue :issue:`42`
 
     See issues :issue:`12,13`
+
+
+Use the ``:user:`` role in your docs to link to user profiles (Github by default, but can be configured via the ``issues_user_uri`` config variable).
+
+.. code-block:: rst
+
+    Thanks to :user:`bitprophet` for the idea!
 
 Credits
 *******
