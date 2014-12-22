@@ -2,6 +2,9 @@
 sphinx-issues
 =============
 
+.. image:: https://travis-ci.org/sloria/sphinx-issues.svg?branch=master
+    :target: https://travis-ci.org/sloria/sphinx-issues
+
 A Sphinx extension for linking to your project's issue tracker. Includes roles for linking to both issues and user profiles, with built-in support for GitHub (though this works with other services).
 
 Example
@@ -65,7 +68,7 @@ MIT licensed. See the bundled `LICENSE <https://github.com/sloria/sphinx-issues/
 Changelog
 *********
 
-0.2.0 (unreleased)
+0.2.0 (2014-12-22)
 ------------------
 
 - Add ``:user:`` role for linking to Github user profiles.
