@@ -9,6 +9,7 @@ except ImportError:
 from sphinx.application import Sphinx
 from sphinx_issues import (
     issue_role,
+    user_role,
     setup as issues_setup
 )
 
@@ -70,3 +71,15 @@ def test_issue_role_multiple(inliner):
     link2 = result[0][2]
     assert link2.astext() == '#43'
     assert link2.attributes['refuri'] == 'https://github.com/sloria/marshmallow/issues/43'
+
+def test_user_role(inliner):
+    result = user_role(
+        name=None,
+        rawtext='',
+        text='sloria',
+        inliner=inliner,
+        lineno=None
+    )
+    link = result[0][0]
+    assert link.astext() == '@sloria'
+    assert link.attributes['refuri'] == 'https://github.com/sloria'
