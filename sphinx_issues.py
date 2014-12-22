@@ -2,7 +2,9 @@
 """A Sphinx extension for linking to your project's issue tracker."""
 from docutils import nodes, utils
 
-__version__ = '0.1.0'
+__version__ = '0.2.0-dev'
+__author__ = 'Steven Loria'
+__license__ = 'MIT'
 
 
 def user_role(name, rawtext, text, lineno,
