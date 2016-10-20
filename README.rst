@@ -54,6 +54,12 @@ Use the ``:user:`` role in your docs to link to user profiles (Github by default
 
     Thanks to :user:`bitprophet` for the idea!
 
+You can also use explicit names if you want to use a different name than the github user name:
+
+.. code-block:: rst
+
+    This change is due to :user:`Andreas Mueller <amueller>`.
+
 Credits
 *******
 
@@ -67,6 +73,10 @@ MIT licensed. See the bundled `LICENSE <https://github.com/sloria/sphinx-issues/
 
 Changelog
 *********
+
+0.2.1 (2016-10-20)
+------------------
+- Add explicit names to ``:user:`` role (by @amueller).
 
 0.2.0 (2014-12-22)
 ------------------
