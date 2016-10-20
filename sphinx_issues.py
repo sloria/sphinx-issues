@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 """A Sphinx extension for linking to your project's issue tracker."""
 from docutils import nodes, utils
-#from sphinx.roles import XRefRole
-#from sphinx.util import ws_re
 from sphinx.util.nodes import split_explicit_title
 
 __version__ = '0.2.0'
