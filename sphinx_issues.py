@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 """A Sphinx extension for linking to your project's issue tracker."""
 from docutils import nodes, utils
+#from sphinx.roles import XRefRole
+#from sphinx.util import ws_re
+from sphinx.util.nodes import split_explicit_title
 
 __version__ = '0.2.0'
 __author__ = 'Steven Loria'
@@ -19,13 +22,20 @@ def user_role(name, rawtext, text, lineno,
     """
     options = options or {}
     content = content or []
-    username = utils.unescape(text).strip()
+    has_explicit_title, title, target = split_explicit_title(text)
+
+    target = utils.unescape(target).strip()
+    title = utils.unescape(title).strip()
     config = inliner.document.settings.env.app.config
     if config.issues_user_uri:
-        ref = config.issues_user_uri.format(user=username)
+        ref = config.issues_user_uri.format(user=target)
     else:
-        ref = 'https://github.com/{0}'.format(username)
-    text = '@{0}'.format(username)
+        ref = 'https://github.com/{0}'.format(target)
+    if has_explicit_title:
+        text = title
+    else:
+        text = '@{0}'.format(target)
+
     link = nodes.reference(text=text, refuri=ref, **options)
     return [link], []
 
