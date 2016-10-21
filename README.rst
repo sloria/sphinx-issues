@@ -74,9 +74,10 @@ MIT licensed. See the bundled `LICENSE <https://github.com/sloria/sphinx-issues/
 Changelog
 *********
 
-0.2.1 (2016-10-20)
+0.3.0 (2016-10-20)
 ------------------
-- Add explicit names to ``:user:`` role (by @amueller).
+
+- Support anchor text for ``:user:`` role. Thanks @jnothman for the suggestion and thanks @amueller for the PR.
 
 0.2.0 (2014-12-22)
 ------------------

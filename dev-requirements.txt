@@ -1,4 +1,5 @@
 invoke==0.13.0
 pytest==3.0.3
+twine==1.8.1
 tox
 mock

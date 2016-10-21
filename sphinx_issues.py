@@ -3,7 +3,7 @@
 from docutils import nodes, utils
 from sphinx.util.nodes import split_explicit_title
 
-__version__ = '0.2.0'
+__version__ = '0.3.0'
 __author__ = 'Steven Loria'
 __license__ = 'MIT'
 
@@ -14,9 +14,13 @@ def user_role(name, rawtext, text, lineno,
     Github profiles, but the profile URIS can be configured via the
     ``issues_user_uri`` config value.
 
-    Example: ::
+    Examples: ::
 
         :user:`sloria`
+
+    Anchor text also works: ::
+
+        :user:`Steven Loria <sloria>`
     """
     options = options or {}
     content = content or []
