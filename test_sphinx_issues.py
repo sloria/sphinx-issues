@@ -15,6 +15,7 @@ from sphinx_issues import (
 
 import pytest
 
+
 @pytest.yield_fixture(params=[
     # Parametrize config
     {'issues_github_path': 'sloria/marshmallow'},
@@ -37,9 +38,11 @@ def app(request):
     yield app
     [rmtree(x) for x in (src, doctree, confdir, outdir)]
 
+
 @pytest.fixture()
 def inliner(app):
     return Mock(document=Mock(settings=Mock(env=Mock(app=app))))
+
 
 def test_issue_role(inliner):
     result = issue_role(
@@ -51,7 +54,9 @@ def test_issue_role(inliner):
     )
     link = result[0][0]
     assert link.astext() == '#42'
-    assert link.attributes['refuri'] == 'https://github.com/sloria/marshmallow/issues/42'
+    issue_url = 'https://github.com/sloria/marshmallow/issues/42'
+    assert link.attributes['refuri'] == issue_url
+
 
 def test_issue_role_multiple(inliner):
     result = issue_role(
@@ -63,18 +68,20 @@ def test_issue_role_multiple(inliner):
     )
     link1 = result[0][0]
     assert link1.astext() == '#42'
-    assert link1.attributes['refuri'] == 'https://github.com/sloria/marshmallow/issues/42'
+    issue_url = 'https://github.com/sloria/marshmallow/issues/'
+    assert link1.attributes['refuri'] == issue_url + '42'
 
     sep = result[0][1]
     assert sep.astext() == ', '
 
     link2 = result[0][2]
     assert link2.astext() == '#43'
-    assert link2.attributes['refuri'] == 'https://github.com/sloria/marshmallow/issues/43'
+    assert link2.attributes['refuri'] == issue_url + '43'
+
 
 def test_user_role(inliner):
     result = user_role(
-        name=None,
+        "user",
         rawtext='',
         text='sloria',
         inliner=inliner,
@@ -82,4 +89,17 @@ def test_user_role(inliner):
     )
     link = result[0][0]
     assert link.astext() == '@sloria'
+    assert link.attributes['refuri'] == 'https://github.com/sloria'
+
+
+def test_user_role_explicit_name(inliner):
+    result = user_role(
+        "user",
+        rawtext='',
+        text='Steven Loria <sloria>',
+        inliner=inliner,
+        lineno=None
+    )
+    link = result[0][0]
+    assert link.astext() == 'Steven Loria'
     assert link.attributes['refuri'] == 'https://github.com/sloria'
