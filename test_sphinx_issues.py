@@ -33,7 +33,7 @@ def app(request):
     issues_setup(app)
     # Stitch together as the sphinx app init() usually does w/ real conf files
     app.config._raw_config = request.param
-    app.config.init_values()
+    app.config.init_values(app.warn)
     yield app
     [rmtree(x) for x in (src, doctree, confdir, outdir)]
 
