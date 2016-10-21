@@ -1,4 +1,4 @@
-invoke
+invoke==0.13.0
+pytest==3.0.3
 tox
-pytest
 mock
