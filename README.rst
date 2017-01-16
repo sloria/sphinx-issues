@@ -74,6 +74,11 @@ MIT licensed. See the bundled `LICENSE <https://github.com/sloria/sphinx-issues/
 Changelog
 *********
 
+0.3.1 (2017-01-16)
+------------------
+
+- ``setup`` returns metadata, preventing warnings about parallel reads and writes. Thanks @jfinkels for reporting.
+
 0.3.0 (2016-10-20)
 ------------------
 
