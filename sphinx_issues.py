@@ -93,3 +93,9 @@ def setup(app):
     app.add_config_value('issues_user_uri', default=None, rebuild='html')
     app.add_role('issue', issue_role)
     app.add_role('user', user_role)
+    return {
+        'version': __version__,
+        'parallel_read_safe': True,
+        'parallel_write_safe': True,
+    }
+
