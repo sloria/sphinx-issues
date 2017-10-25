@@ -51,6 +51,8 @@ def _make_issue_node(issue_no, config, options=None):
             ref = 'https://github.com/{0}/issues/{1}'.format(
                 config.issues_github_path, issue_no
             )
+        else:
+            raise ValueError('Neither issues_uri nor issues_github_path is set')
         issue_text = '#{0}'.format(issue_no)
         link = nodes.reference(text=issue_text, refuri=ref, **options)
     else:
