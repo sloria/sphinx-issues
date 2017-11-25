@@ -1,16 +1,21 @@
 language: python
-
 python:
-  - "3.6"
-  - "3.5"
-  - "3.4"
-  - "3.3"
-  - "2.7"
-  - "2.6"
-  - "pypy"
-
+- '3.6'
+- '3.5'
+- '3.4'
+- '3.3'
+- '2.7'
+- '2.6'
+- pypy
 install:
-  - pip install -r dev-requirements.txt
-  - pip install -U .
-
+- pip install -r dev-requirements.txt
+- pip install -U .
 script: invoke test
+deploy:
+  provider: pypi
+  user: sloria
+  on:
+    tags: true
+  distributions: sdist bdist_wheel
+  password:
+    secure: D0c2PYyI06+N5/inLaPHkEaM/GVgKVPCBDm2asmQvCTs14ory9KK17cnS+tOmrTNyMzw2tYSvD1Ar5a7MQAfcJ+p2bOnr/UCLqzt98H2LlE/2NJdzQtI3FtNCkhRVx20LK85G8ZWaHCecGIkgGmbIDZ56u1Aj+G16z0PqEz5i7s=
