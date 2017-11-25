@@ -74,6 +74,11 @@ MIT licensed. See the bundled `LICENSE <https://github.com/sloria/sphinx-issues/
 Changelog
 *********
 
+0.4.0 (2017-11-25)
+------------------
+
+- Raise ``ValueError`` if neither ``issues_uri`` nor ``issues_github_path`` is set. Thanks @jnothman for the PR.
+
 0.3.1 (2017-01-16)
 ------------------
 

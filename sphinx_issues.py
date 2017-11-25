@@ -3,7 +3,7 @@
 from docutils import nodes, utils
 from sphinx.util.nodes import split_explicit_title
 
-__version__ = '0.3.1'
+__version__ = '0.4.0'
 __author__ = 'Steven Loria'
 __license__ = 'MIT'
 
@@ -100,4 +100,3 @@ def setup(app):
         'parallel_read_safe': True,
         'parallel_write_safe': True,
     }
-
