@@ -37,7 +37,7 @@ setup(
     author='Steven Loria',
     author_email='sloria1@gmail.com',
     url='https://github.com/sloria/sphinx-issues',
-    license=read('LICENSE'),
+    license='MIT',
     keywords='sphinx,issues,github',
     classifiers=[
         'Intended Audience :: Developers',
