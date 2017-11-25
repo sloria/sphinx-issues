@@ -78,6 +78,7 @@ Changelog
 ------------------
 
 - Raise ``ValueError`` if neither ``issues_uri`` nor ``issues_github_path`` is set. Thanks @jnothman for the PR.
+- Drop support for Python 2.6 and 3.3.
 
 0.3.1 (2017-01-16)
 ------------------
