@@ -5,6 +5,9 @@ python:
 - '3.4'
 - '2.7'
 - pypy
+before_install:
+  # Workaround for travis issue
+  - pip install -U six
 install:
 - pip install -r dev-requirements.txt
 - pip install -U .
