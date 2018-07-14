@@ -51,4 +51,5 @@ setup(
         "Topic :: Software Development :: Documentation",
     ],
     py_modules=["sphinx_issues"],
+    project_urls={"Issues": "https://github.com/sloria/sphinx-issues/issues"},
 )
