@@ -79,7 +79,7 @@ MIT licensed. See the bundled `LICENSE <https://github.com/sloria/sphinx-issues/
 Changelog
 *********
 
-1.0.0 (unreleased)
+1.0.0 (2018-07-14)
 ------------------
 
 - Add ``:pr:`` role. Thanks @jnotham for the suggestion.
