@@ -1,39 +1,33 @@
 # -*- coding: utf-8 -*-
 from tempfile import mkdtemp
 from shutil import rmtree
+
 try:
     from unittest.mock import Mock
 except ImportError:
     from mock import Mock
 
 from sphinx.application import Sphinx
-from sphinx_issues import (
-    issue_role,
-    user_role,
-    pr_role,
-    setup as issues_setup
-)
+from sphinx_issues import issue_role, user_role, pr_role, setup as issues_setup
 
 import pytest
 
 
-@pytest.yield_fixture(params=[
-    # Parametrize config
-    {'issues_github_path': 'marshmallow-code/marshmallow'},
-    {
-        'issues_uri': 'https://github.com/marshmallow-code/marshmallow/issues/{issue}',
-        'issues_pr_uri': 'https://github.com/marshmallow-code/marshmallow/pull/{pr}',
-    }
-])
+@pytest.yield_fixture(
+    params=[
+        # Parametrize config
+        {"issues_github_path": "marshmallow-code/marshmallow"},
+        {
+            "issues_uri": "https://github.com/marshmallow-code/marshmallow/issues/{issue}",
+            "issues_pr_uri": "https://github.com/marshmallow-code/marshmallow/pull/{pr}",
+        },
+    ]
+)
 def app(request):
     src, doctree, confdir, outdir = [mkdtemp() for _ in range(4)]
     Sphinx._log = lambda self, message, wfile, nonl=False: None
     app = Sphinx(
-        srcdir=src,
-        confdir=None,
-        outdir=outdir,
-        doctreedir=doctree,
-        buildername='html',
+        srcdir=src, confdir=None, outdir=outdir, doctreedir=doctree, buildername="html"
     )
     issues_setup(app)
     # Stitch together as the sphinx app init() usually does w/ real conf files
@@ -52,75 +46,49 @@ def inliner(app):
 
 
 def test_issue_role(inliner):
-    result = issue_role(
-        name=None,
-        rawtext='',
-        text='42',
-        lineno=None,
-        inliner=inliner
-    )
+    result = issue_role(name=None, rawtext="", text="42", lineno=None, inliner=inliner)
     link = result[0][0]
-    assert link.astext() == '#42'
-    issue_url = 'https://github.com/marshmallow-code/marshmallow/issues/42'
-    assert link.attributes['refuri'] == issue_url
+    assert link.astext() == "#42"
+    issue_url = "https://github.com/marshmallow-code/marshmallow/issues/42"
+    assert link.attributes["refuri"] == issue_url
 
 
 def test_issue_role_multiple(inliner):
     result = issue_role(
-        name=None,
-        rawtext='',
-        text='42,43',
-        inliner=inliner,
-        lineno=None,
+        name=None, rawtext="", text="42,43", inliner=inliner, lineno=None
     )
     link1 = result[0][0]
-    assert link1.astext() == '#42'
-    issue_url = 'https://github.com/marshmallow-code/marshmallow/issues/'
-    assert link1.attributes['refuri'] == issue_url + '42'
+    assert link1.astext() == "#42"
+    issue_url = "https://github.com/marshmallow-code/marshmallow/issues/"
+    assert link1.attributes["refuri"] == issue_url + "42"
 
     sep = result[0][1]
-    assert sep.astext() == ', '
+    assert sep.astext() == ", "
 
     link2 = result[0][2]
-    assert link2.astext() == '#43'
-    assert link2.attributes['refuri'] == issue_url + '43'
+    assert link2.astext() == "#43"
+    assert link2.attributes["refuri"] == issue_url + "43"
 
 
 def test_user_role(inliner):
-    result = user_role(
-        "user",
-        rawtext='',
-        text='sloria',
-        inliner=inliner,
-        lineno=None
-    )
+    result = user_role("user", rawtext="", text="sloria", inliner=inliner, lineno=None)
     link = result[0][0]
-    assert link.astext() == '@sloria'
-    assert link.attributes['refuri'] == 'https://github.com/sloria'
+    assert link.astext() == "@sloria"
+    assert link.attributes["refuri"] == "https://github.com/sloria"
 
 
 def test_user_role_explicit_name(inliner):
     result = user_role(
-        "user",
-        rawtext='',
-        text='Steven Loria <sloria>',
-        inliner=inliner,
-        lineno=None
+        "user", rawtext="", text="Steven Loria <sloria>", inliner=inliner, lineno=None
     )
     link = result[0][0]
-    assert link.astext() == 'Steven Loria'
-    assert link.attributes['refuri'] == 'https://github.com/sloria'
+    assert link.astext() == "Steven Loria"
+    assert link.attributes["refuri"] == "https://github.com/sloria"
 
 
 def test_pr_role(inliner):
-    result = pr_role(
-        name=None,
-        rawtext='',
-        text='42',
-        lineno=None,
-        inliner=inliner
-    )
+    result = pr_role(name=None, rawtext="", text="42", lineno=None, inliner=inliner)
     link = result[0][0]
-    assert link.astext() == '#42'
-    issue_url = 'https://github.com/marshmallow-code/marshmallow/pull/42'
-    assert link.attributes['refuri'] == issue_url
+    assert link.astext() == "#42"
+    issue_url = "https://github.com/marshmallow-code/marshmallow/pull/42"
+    assert link.attributes["refuri"] == issue_url
