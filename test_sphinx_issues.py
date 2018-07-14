@@ -10,6 +10,7 @@ from sphinx.application import Sphinx
 from sphinx_issues import (
     issue_role,
     user_role,
+    pr_role,
     setup as issues_setup
 )
 
@@ -18,8 +19,11 @@ import pytest
 
 @pytest.yield_fixture(params=[
     # Parametrize config
-    {'issues_github_path': 'sloria/marshmallow'},
-    {'issues_uri': 'https://github.com/sloria/marshmallow/issues/{issue}'}
+    {'issues_github_path': 'marshmallow-code/marshmallow'},
+    {
+        'issues_uri': 'https://github.com/marshmallow-code/marshmallow/issues/{issue}',
+        'issues_pr_uri': 'https://github.com/marshmallow-code/marshmallow/pull/{pr}',
+    }
 ])
 def app(request):
     src, doctree, confdir, outdir = [mkdtemp() for _ in range(4)]
@@ -57,7 +61,7 @@ def test_issue_role(inliner):
     )
     link = result[0][0]
     assert link.astext() == '#42'
-    issue_url = 'https://github.com/sloria/marshmallow/issues/42'
+    issue_url = 'https://github.com/marshmallow-code/marshmallow/issues/42'
     assert link.attributes['refuri'] == issue_url
 
 
@@ -71,7 +75,7 @@ def test_issue_role_multiple(inliner):
     )
     link1 = result[0][0]
     assert link1.astext() == '#42'
-    issue_url = 'https://github.com/sloria/marshmallow/issues/'
+    issue_url = 'https://github.com/marshmallow-code/marshmallow/issues/'
     assert link1.attributes['refuri'] == issue_url + '42'
 
     sep = result[0][1]
@@ -106,3 +110,17 @@ def test_user_role_explicit_name(inliner):
     link = result[0][0]
     assert link.astext() == 'Steven Loria'
     assert link.attributes['refuri'] == 'https://github.com/sloria'
+
+
+def test_pr_role(inliner):
+    result = pr_role(
+        name=None,
+        rawtext='',
+        text='42',
+        lineno=None,
+        inliner=inliner
+    )
+    link = result[0][0]
+    assert link.astext() == '#42'
+    issue_url = 'https://github.com/marshmallow-code/marshmallow/pull/42'
+    assert link.attributes['refuri'] == issue_url
