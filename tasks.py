@@ -5,12 +5,14 @@ import webbrowser
 from invoke import task
 
 @task
-def test(ctx, watch=False, last_failing=False):
+def test(ctx, syntax=True, watch=False, last_failing=False):
     """Run the tests.
 
     Note: --watch requires pytest-xdist to be installed.
     """
     import pytest
+    if syntax:
+        flake(ctx)
     args = []
     if watch:
         args.append('-f')
@@ -18,6 +20,11 @@ def test(ctx, watch=False, last_failing=False):
         args.append('--lf')
     retcode = pytest.main(args)
     sys.exit(retcode)
+
+@task
+def flake(ctx):
+    """Run flake8 on codebase."""
+    ctx.run('flake8 .', echo=True)
 
 @task
 def readme(ctx, browse=False):

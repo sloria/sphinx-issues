@@ -19,6 +19,7 @@ def find_version(fname):
         raise RuntimeError('Cannot find version information')
     return version
 
+
 __version__ = find_version('sphinx_issues.py')
 
 
@@ -26,6 +27,7 @@ def read(fname):
     with open(fname) as fp:
         content = fp.read()
     return content
+
 
 setup(
     name='sphinx-issues',
@@ -38,14 +40,13 @@ setup(
     author_email='sloria1@gmail.com',
     url='https://github.com/sloria/sphinx-issues',
     license='MIT',
-    keywords='sphinx,issues,github',
+    keywords='sphinx issues github',
     classifiers=[
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
         "Programming Language :: Python :: 2",
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Topic :: Software Development :: Documentation',
