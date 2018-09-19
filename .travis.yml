@@ -19,10 +19,9 @@ jobs:
     if: tag IS present
     python: "3.6"
     # Override before_install, install, and script to no-ops
-    before_install: true
-    install: true
+    before_install: skip
+    install: skip
     script: echo "Releasing to PyPI..."
-    after_success: true
     deploy:
       provider: pypi
       user: sloria
