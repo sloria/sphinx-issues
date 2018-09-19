@@ -79,6 +79,11 @@ MIT licensed. See the bundled `LICENSE <https://github.com/sloria/sphinx-issues/
 Changelog
 *********
 
+1.1.0 (unreleased)
+------------------
+
+- Add ``:cve:`` role for linking to CVEs on https://cve.mitre.org.
+
 1.0.0 (2018-07-14)
 ------------------
 

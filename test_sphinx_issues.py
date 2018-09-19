@@ -8,7 +8,13 @@ except ImportError:
     from mock import Mock
 
 from sphinx.application import Sphinx
-from sphinx_issues import issue_role, user_role, pr_role, setup as issues_setup
+from sphinx_issues import (
+    issue_role,
+    user_role,
+    pr_role,
+    cve_role,
+    setup as issues_setup,
+)
 
 import pytest
 
@@ -91,4 +97,12 @@ def test_pr_role(inliner):
     link = result[0][0]
     assert link.astext() == "#42"
     issue_url = "https://github.com/marshmallow-code/marshmallow/pull/42"
+    assert link.attributes["refuri"] == issue_url
+
+
+def test_cve_role(inliner):
+    result = cve_role(name=None, rawtext="", text="CVE-2018-17175", lineno=None, inliner=inliner)
+    link = result[0][0]
+    assert link.astext() == "CVE-2018-17175"
+    issue_url = "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-17175"
     assert link.attributes["refuri"] == issue_url
