@@ -41,6 +41,26 @@ def user_role(name, rawtext, text, lineno, inliner, options=None, content=None):
     return [link], []
 
 
+def cve_role(name, rawtext, text, lineno, inliner, options=None, content=None):
+    """Sphinx role for linking to a CVE on https://cve.mitre.org.
+
+    Examples: ::
+
+        :cve:`CVE-2018-17175`
+
+    """
+    options = options or {}
+    content = content or []
+    has_explicit_title, title, target = split_explicit_title(text)
+
+    target = utils.unescape(target).strip()
+    title = utils.unescape(title).strip()
+    ref = "https://cve.mitre.org/cgi-bin/cvename.cgi?name={0}".format(target)
+    text = title if has_explicit_title else target
+    link = nodes.reference(text=text, refuri=ref, **options)
+    return [link], []
+
+
 class IssueRole(object):
     def __init__(self, uri_config_option, format_kwarg, github_uri_template):
         self.uri_config_option = uri_config_option
@@ -125,6 +145,7 @@ def setup(app):
     app.add_role("issue", issue_role)
     app.add_role("pr", pr_role)
     app.add_role("user", user_role)
+    app.add_role("cve", cve_role)
     return {
         "version": __version__,
         "parallel_read_safe": True,
