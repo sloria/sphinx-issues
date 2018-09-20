@@ -65,6 +65,12 @@ You can also use explicit names if you want to use a different name than the git
 
     This change is due to :user:`Andreas Mueller <amueller>`.
 
+Use the ``:cve:`` role to link to CVEs on https://cve.mitre.org.
+
+.. code-block:: rst
+
+    :cve:`CVE-2018-17175` - Addresses possible vulnerability when...
+
 Credits
 *******
 
