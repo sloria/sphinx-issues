@@ -1,6 +1,6 @@
 invoke==1.2.0
 pytest==3.10.1
-tox==3.6.0
+tox==3.6.1
 mock==2.0.0
 flake8==3.6.0
 
