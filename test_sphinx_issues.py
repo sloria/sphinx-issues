@@ -53,12 +53,52 @@ def inliner(app):
     return Mock(document=Mock(settings=Mock(env=Mock(app=app))))
 
 
-def test_issue_role(inliner):
-    result = issue_role(name=None, rawtext="", text="42", lineno=None, inliner=inliner)
+@pytest.mark.parametrize(
+    ("role", "role_name", "text", "expected_text", "expected_url"),
+    [
+        (
+            issue_role,
+            "issue",
+            "42",
+            "#42",
+            "https://github.com/marshmallow-code/marshmallow/issues/42",
+        ),
+        (
+            pr_role,
+            "pr",
+            "42",
+            "#42",
+            "https://github.com/marshmallow-code/marshmallow/pull/42",
+        ),
+        (user_role, "user", "sloria", "@sloria", "https://github.com/sloria"),
+        (
+            user_role,
+            "user",
+            "Steven Loria <sloria>",
+            "Steven Loria",
+            "https://github.com/sloria",
+        ),
+        (
+            cve_role,
+            "cve",
+            "CVE-2018-17175",
+            "CVE-2018-17175",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-17175",
+        ),
+        (
+            commit_role,
+            "commit",
+            "123abc456def",
+            "123abc4",
+            "https://github.com/marshmallow-code/marshmallow/commit/123abc456def",
+        ),
+    ],
+)
+def test_roles(inliner, role, role_name, text, expected_text, expected_url):
+    result = role(role_name, rawtext="", text=text, lineno=None, inliner=inliner)
     link = result[0][0]
-    assert link.astext() == "#42"
-    issue_url = "https://github.com/marshmallow-code/marshmallow/issues/42"
-    assert link.attributes["refuri"] == issue_url
+    assert link.astext() == expected_text
+    assert link.attributes["refuri"] == expected_url
 
 
 def test_issue_role_multiple(inliner):
@@ -76,46 +116,3 @@ def test_issue_role_multiple(inliner):
     link2 = result[0][2]
     assert link2.astext() == "#43"
     assert link2.attributes["refuri"] == issue_url + "43"
-
-
-def test_user_role(inliner):
-    result = user_role("user", rawtext="", text="sloria", inliner=inliner, lineno=None)
-    link = result[0][0]
-    assert link.astext() == "@sloria"
-    assert link.attributes["refuri"] == "https://github.com/sloria"
-
-
-def test_user_role_explicit_name(inliner):
-    result = user_role(
-        "user", rawtext="", text="Steven Loria <sloria>", inliner=inliner, lineno=None
-    )
-    link = result[0][0]
-    assert link.astext() == "Steven Loria"
-    assert link.attributes["refuri"] == "https://github.com/sloria"
-
-
-def test_pr_role(inliner):
-    result = pr_role(name=None, rawtext="", text="42", lineno=None, inliner=inliner)
-    link = result[0][0]
-    assert link.astext() == "#42"
-    issue_url = "https://github.com/marshmallow-code/marshmallow/pull/42"
-    assert link.attributes["refuri"] == issue_url
-
-
-def test_cve_role(inliner):
-    result = cve_role(
-        name=None, rawtext="", text="CVE-2018-17175", lineno=None, inliner=inliner
-    )
-    link = result[0][0]
-    assert link.astext() == "CVE-2018-17175"
-    issue_url = "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-17175"
-    assert link.attributes["refuri"] == issue_url
-
-
-def test_commit_role(inliner):
-    sha = "123abc456def"
-    result = commit_role(name=None, rawtext="", text=sha, lineno=None, inliner=inliner)
-    link = result[0][0]
-    assert link.astext() == sha[:7]
-    url = "https://github.com/marshmallow-code/marshmallow/commit/{}".format(sha)
-    assert link.attributes["refuri"] == url
