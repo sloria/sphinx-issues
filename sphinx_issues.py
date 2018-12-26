@@ -5,7 +5,7 @@ import re
 from docutils import nodes, utils
 from sphinx.util.nodes import split_explicit_title
 
-__version__ = "1.1.0"
+__version__ = "1.2.0"
 __author__ = "Steven Loria"
 __license__ = "MIT"
 

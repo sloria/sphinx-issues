@@ -95,7 +95,7 @@ MIT licensed. See the bundled `LICENSE <https://github.com/sloria/sphinx-issues/
 Changelog
 *********
 
-1.2.0 (unreleased)
+1.2.0 (2018-12-26)
 ------------------
 
 - Add ``:commit:`` role for linking to commits.
