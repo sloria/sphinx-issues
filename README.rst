@@ -2,8 +2,17 @@
 sphinx-issues
 =============
 
-.. image:: https://travis-ci.org/sloria/sphinx-issues.svg?branch=master
-    :target: https://travis-ci.org/sloria/sphinx-issues
+.. image:: https://badgen.net/pypi/v/sphinx-issues
+  :alt: pypi badge
+  :target: http://badge.fury.io/py/sphinx-issues
+
+.. image:: https://badgen.net/travis/sloria/sphinx-issues
+  :alt: travis-ci status
+  :target: https://travis-ci.org/sloria/sphinx-issues
+
+.. image:: https://badgen.net/badge/code%20style/black/000
+   :target: https://github.com/ambv/black
+   :alt: Code style: Black
 
 A Sphinx extension for linking to your project's issue tracker. Includes roles for linking to issues, pull requests, user profiles, with built-in support for GitHub (though this works with other services).
 
