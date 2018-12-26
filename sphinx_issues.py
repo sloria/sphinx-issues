@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 """A Sphinx extension for linking to your project's issue tracker."""
+import re
+
 from docutils import nodes, utils
 from sphinx.util.nodes import split_explicit_title
 
@@ -62,6 +64,9 @@ def cve_role(name, rawtext, text, lineno, inliner, options=None, content=None):
 
 
 class IssueRole(object):
+
+    EXTERNAL_REPO_REGEX = re.compile(r"^(\w+)/(.+)([#@])([\w]+)$")
+
     def __init__(
         self, uri_config_option, format_kwarg, github_uri_template, format_text=None
     ):
@@ -74,8 +79,25 @@ class IssueRole(object):
     def default_format_text(issue_no):
         return "#{0}".format(issue_no)
 
-    def make_node(self, issue_no, config, options=None):
+    def make_node(self, name, issue_no, config, options=None):
+        name_map = {"pr": "pull", "issue": "issues", "commit": "commit"}
         options = options or {}
+        repo_match = self.EXTERNAL_REPO_REGEX.match(issue_no)
+        if repo_match:  # External repo
+            username, repo, symbol, issue = repo_match.groups()
+            if name not in name_map:
+                raise ValueError(
+                    "External repo linking not supported for :{}:".format(name)
+                )
+            path = name_map.get(name)
+            ref = "https://github.com/{issues_github_path}/{path}/{n}".format(
+                issues_github_path="{}/{}".format(username, repo), path=path, n=issue
+            )
+            formatted_issue = self.format_text(issue).lstrip("#")
+            text = "{username}/{repo}{symbol}{formatted_issue}".format(**locals())
+            link = nodes.reference(text=text, refuri=ref, **options)
+            return link
+
         if issue_no not in ("-", "0"):
             uri_template = getattr(config, self.uri_config_option, None)
             if uri_template:
@@ -104,7 +126,7 @@ class IssueRole(object):
         config = inliner.document.settings.env.app.config
         ret = []
         for i, issue_no in enumerate(issue_nos):
-            node = self.make_node(issue_no, config, options=options)
+            node = self.make_node(name, issue_no, config, options=options)
             ret.append(node)
             if i != len(issue_nos) - 1:
                 sep = nodes.raw(text=", ", format="html")
@@ -117,6 +139,7 @@ class IssueRole(object):
 Examples: ::
     :issue:`123`
     :issue:`42,45`
+    :issue:`sloria/konch#123`
 """
 issue_role = IssueRole(
     uri_config_option="issues_uri",
@@ -129,6 +152,7 @@ issue_role = IssueRole(
 Examples: ::
     :pr:`123`
     :pr:`42,45`
+    :pr:`sloria/konch#43`
 """
 pr_role = IssueRole(
     uri_config_option="issues_pr_uri",
@@ -145,6 +169,7 @@ def format_commit_text(sha):
 `issues_pr_uri` or `issues_github_path` configured in ``conf.py``.
 Examples: ::
     :commit:`123abc456def`
+    :commit:`sloria/konch@123abc456def`
 """
 commit_role = IssueRole(
     uri_config_option="issues_commit_uri",

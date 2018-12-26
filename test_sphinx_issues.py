@@ -92,6 +92,30 @@ def inliner(app):
             "123abc4",
             "https://github.com/marshmallow-code/marshmallow/commit/123abc456def",
         ),
+        # External issue
+        (
+            issue_role,
+            "issue",
+            "sloria/webargs#42",
+            "sloria/webargs#42",
+            "https://github.com/sloria/webargs/issues/42",
+        ),
+        # External PR
+        (
+            pr_role,
+            "pr",
+            "sloria/webargs#42",
+            "sloria/webargs#42",
+            "https://github.com/sloria/webargs/pull/42",
+        ),
+        # External commit
+        (
+            commit_role,
+            "commit",
+            "sloria/webargs@abc123def456",
+            "sloria/webargs@abc123d",
+            "https://github.com/sloria/webargs/commit/abc123def456",
+        ),
     ],
 )
 def test_roles(inliner, role, role_name, text, expected_text, expected_url):
