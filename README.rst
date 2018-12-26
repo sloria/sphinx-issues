@@ -38,6 +38,7 @@ Add ``sphinx_issues`` to ``extensions`` in your ``conf.py``. If your project is 
     # equivalent to
     issues_uri = "https://github.com/sloria/marshmallow/issues/{issue}"
     issues_pr_uri = "https://github.com/sloria/marshmallow/pull/{pr}"
+    issues_commit_uri = "https://github.com/sloria/marshmallow/commit/{commit}"
 
 Usage
 *****
@@ -65,6 +66,13 @@ You can also use explicit names if you want to use a different name than the git
 
     This change is due to :user:`Andreas Mueller <amueller>`.
 
+
+Use the ``:commit:`` role to link to commits.
+
+.. code-block:: rst
+
+    Fixed in :commit:`6bb9124d5e9dbb2f7b52864c3d8af7feb1b69403`.
+
 Use the ``:cve:`` role to link to CVEs on https://cve.mitre.org.
 
 .. code-block:: rst
@@ -88,6 +96,7 @@ Changelog
 1.2.0 (unreleased)
 ------------------
 
+- Add ``:commit:`` role for linking to commits.
 - Test against Python 3.7.
 
 1.1.0 (2018-09-18)
