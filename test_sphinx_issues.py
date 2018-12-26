@@ -13,6 +13,7 @@ from sphinx_issues import (
     user_role,
     pr_role,
     cve_role,
+    commit_role,
     setup as issues_setup,
 )
 
@@ -26,6 +27,7 @@ import pytest
         {
             "issues_uri": "https://github.com/marshmallow-code/marshmallow/issues/{issue}",
             "issues_pr_uri": "https://github.com/marshmallow-code/marshmallow/pull/{pr}",
+            "issues_commit_uri": "https://github.com/marshmallow-code/marshmallow/commit/{commit}",
         },
     ]
 )
@@ -108,3 +110,12 @@ def test_cve_role(inliner):
     assert link.astext() == "CVE-2018-17175"
     issue_url = "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-17175"
     assert link.attributes["refuri"] == issue_url
+
+
+def test_commit_role(inliner):
+    sha = "123abc456def"
+    result = commit_role(name=None, rawtext="", text=sha, lineno=None, inliner=inliner)
+    link = result[0][0]
+    assert link.astext() == sha[:7]
+    url = "https://github.com/marshmallow-code/marshmallow/commit/{}".format(sha)
+    assert link.attributes["refuri"] == url

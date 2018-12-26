@@ -62,10 +62,17 @@ def cve_role(name, rawtext, text, lineno, inliner, options=None, content=None):
 
 
 class IssueRole(object):
-    def __init__(self, uri_config_option, format_kwarg, github_uri_template):
+    def __init__(
+        self, uri_config_option, format_kwarg, github_uri_template, format_text=None
+    ):
         self.uri_config_option = uri_config_option
         self.format_kwarg = format_kwarg
         self.github_uri_template = github_uri_template
+        self.format_text = format_text or self.default_format_text
+
+    @staticmethod
+    def default_format_text(issue_no):
+        return "#{0}".format(issue_no)
 
     def make_node(self, issue_no, config, options=None):
         options = options or {}
@@ -82,7 +89,7 @@ class IssueRole(object):
                     "Neither {} nor issues_github_path "
                     "is set".format(self.uri_config_option)
                 )
-            issue_text = "#{0}".format(issue_no)
+            issue_text = self.format_text(issue_no)
             link = nodes.reference(text=issue_text, refuri=ref, **options)
         else:
             link = None
@@ -130,6 +137,23 @@ pr_role = IssueRole(
 )
 
 
+def format_commit_text(sha):
+    return sha[:7]
+
+
+"""Sphinx role for linking to a commit. Must have
+`issues_pr_uri` or `issues_github_path` configured in ``conf.py``.
+Examples: ::
+    :commit:`123abc456def`
+"""
+commit_role = IssueRole(
+    uri_config_option="issues_commit_uri",
+    format_kwarg="commit",
+    github_uri_template="https://github.com/{issues_github_path}/commit/{n}",
+    format_text=format_commit_text,
+)
+
+
 def setup(app):
     # Format template for issues URI
     # e.g. 'https://github.com/sloria/marshmallow/issues/{issue}
@@ -137,6 +161,9 @@ def setup(app):
     # Format template for PR URI
     # e.g. 'https://github.com/sloria/marshmallow/pull/{issue}
     app.add_config_value("issues_pr_uri", default=None, rebuild="html")
+    # Format template for commit URI
+    # e.g. 'https://github.com/sloria/marshmallow/commits/{commit}
+    app.add_config_value("issues_commit_uri", default=None, rebuild="html")
     # Shortcut for Github, e.g. 'sloria/marshmallow'
     app.add_config_value("issues_github_path", default=None, rebuild="html")
     # Format template for user profile URI
@@ -145,6 +172,7 @@ def setup(app):
     app.add_role("issue", issue_role)
     app.add_role("pr", pr_role)
     app.add_role("user", user_role)
+    app.add_role("commit", commit_role)
     app.add_role("cve", cve_role)
     return {
         "version": __version__,
