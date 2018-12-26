@@ -4,7 +4,7 @@ from setuptools import setup
 
 INSTALL_REQUIRES = ["sphinx"]
 EXTRAS_REQUIRE = {
-    "tests": ["pytest", "mock"],
+    "tests": ["pytest", 'mock; python_version < "3.0"'],
     "lint": [
         "flake8==3.6.0",
         'flake8-bugbear==18.8.0; python_version >= "3.5"',
