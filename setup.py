@@ -2,6 +2,17 @@
 import re
 from setuptools import setup
 
+INSTALL_REQUIRES = ["sphinx"]
+EXTRAS_REQUIRE = {
+    "tests": ["pytest", "mock"],
+    "lint": [
+        "flake8==3.6.0",
+        'flake8-bugbear==18.8.0; python_version >= "3.5"',
+        "pre-commit==1.13.0",
+    ],
+}
+EXTRAS_REQUIRE["dev"] = EXTRAS_REQUIRE["tests"] + EXTRAS_REQUIRE["lint"] + ["tox"]
+
 
 def find_version(fname):
     """Attempts to find the version number in the file names fname.
@@ -20,9 +31,6 @@ def find_version(fname):
     return version
 
 
-__version__ = find_version("sphinx_issues.py")
-
-
 def read(fname):
     with open(fname) as fp:
         content = fp.read()
@@ -31,10 +39,11 @@ def read(fname):
 
 setup(
     name="sphinx-issues",
-    version=__version__,
+    version=find_version("sphinx_issues.py"),
     description="A Sphinx extension for linking to your project's " "issue tracker",
     long_description=read("README.rst"),
-    install_requires=["sphinx"],
+    install_requires=INSTALL_REQUIRES,
+    extras_require=EXTRAS_REQUIRE,
     author="Steven Loria",
     author_email="sloria1@gmail.com",
     url="https://github.com/sloria/sphinx-issues",
@@ -48,6 +57,7 @@ setup(
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
         "Topic :: Software Development :: Documentation",
     ],
     py_modules=["sphinx_issues"],

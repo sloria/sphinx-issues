@@ -26,18 +26,18 @@ Add ``sphinx_issues`` to ``extensions`` in your ``conf.py``. If your project is 
 
     # docs/conf.py
 
-    #...
+    # ...
     extensions = [
-        #...
-        'sphinx_issues',
+        # ...
+        "sphinx_issues"
     ]
 
     # Github repo
-    issues_github_path = 'sloria/marshmallow'
+    issues_github_path = "sloria/marshmallow"
 
     # equivalent to
-    issues_uri = 'https://github.com/sloria/marshmallow/issues/{issue}'
-    issues_pr_uri = 'https://github.com/sloria/marshmallow/pull/{pr}'
+    issues_uri = "https://github.com/sloria/marshmallow/issues/{issue}"
+    issues_pr_uri = "https://github.com/sloria/marshmallow/pull/{pr}"
 
 Usage
 *****
@@ -84,6 +84,11 @@ MIT licensed. See the bundled `LICENSE <https://github.com/sloria/sphinx-issues/
 
 Changelog
 *********
+
+1.2.0 (unreleased)
+------------------
+
+- Test against Python 3.7.
 
 1.1.0 (2018-09-18)
 ------------------
