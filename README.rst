@@ -51,6 +51,8 @@ Use the ``:issue:``  and ``:pr:`` roles in your docs like so:
 
     See issues :issue:`12,13`
 
+    See :issue:`sloria/konch#45`.
+
     See PR :pr:`58`
 
 
@@ -97,6 +99,7 @@ Changelog
 ------------------
 
 - Add ``:commit:`` role for linking to commits.
+- Add support for linking to external repos.
 - Test against Python 3.7.
 
 1.1.0 (2018-09-18)
