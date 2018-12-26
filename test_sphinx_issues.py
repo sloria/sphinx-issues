@@ -101,7 +101,9 @@ def test_pr_role(inliner):
 
 
 def test_cve_role(inliner):
-    result = cve_role(name=None, rawtext="", text="CVE-2018-17175", lineno=None, inliner=inliner)
+    result = cve_role(
+        name=None, rawtext="", text="CVE-2018-17175", lineno=None, inliner=inliner
+    )
     link = result[0][0]
     assert link.astext() == "CVE-2018-17175"
     issue_url = "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-17175"
