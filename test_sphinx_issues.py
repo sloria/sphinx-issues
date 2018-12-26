@@ -140,3 +140,20 @@ def test_issue_role_multiple(inliner):
     link2 = result[0][2]
     assert link2.astext() == "#43"
     assert link2.attributes["refuri"] == issue_url + "43"
+
+
+def test_issue_role_multiple_with_external(inliner):
+    result = issue_role(
+        "issue", rawtext="", text="42,sloria/konch#43", inliner=inliner, lineno=None
+    )
+    link1 = result[0][0]
+    assert link1.astext() == "#42"
+    issue_url = "https://github.com/marshmallow-code/marshmallow/issues/42"
+    assert link1.attributes["refuri"] == issue_url
+
+    sep = result[0][1]
+    assert sep.astext() == ", "
+
+    link2 = result[0][2]
+    assert link2.astext() == "sloria/konch#43"
+    assert link2.attributes["refuri"] == "https://github.com/sloria/konch/issues/43"
