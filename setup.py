@@ -6,7 +6,7 @@ INSTALL_REQUIRES = ["sphinx"]
 EXTRAS_REQUIRE = {
     "tests": ["pytest", 'mock; python_version < "3.0"'],
     "lint": [
-        "flake8==3.7.3",
+        "flake8==3.7.4",
         'flake8-bugbear==18.8.0; python_version >= "3.5"',
         "pre-commit==1.14.2",
     ],
