@@ -4,7 +4,7 @@ sphinx-issues
 
 .. image:: https://badgen.net/pypi/v/sphinx-issues
   :alt: pypi badge
-  :target: http://badge.fury.io/py/sphinx-issues
+  :target: https://pypi.org/project/sphinx-issues/
 
 .. image:: https://badgen.net/travis/sloria/sphinx-issues
   :alt: travis-ci status
