@@ -40,7 +40,7 @@ def read(fname):
 setup(
     name="sphinx-issues",
     version=find_version("sphinx_issues.py"),
-    description="A Sphinx extension for linking to your project's " "issue tracker",
+    description="A Sphinx extension for linking to your project's issue tracker",
     long_description=read("README.rst"),
     install_requires=INSTALL_REQUIRES,
     extras_require=EXTRAS_REQUIRE,
