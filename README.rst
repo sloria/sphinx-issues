@@ -29,7 +29,8 @@ Installation and Configuration
     pip install sphinx-issues
 
 
-Add ``sphinx_issues`` to ``extensions`` in your ``conf.py``. If your project is on GitHub, add the ``issues_github_path`` config variable. Otherwise, use ``issues_uri`` and ``issues_pr_uri``.
+Add ``sphinx_issues`` to ``extensions`` in your ``conf.py``. If your project is on GitHub, add the ``issues_github_path`` config variable.
+Otherwise, use ``issues_uri``, ``issues_pr_uri``, and ``issues_commit_uri``.
 
 .. code-block:: python
 
@@ -41,7 +42,7 @@ Add ``sphinx_issues`` to ``extensions`` in your ``conf.py``. If your project is 
         "sphinx_issues"
     ]
 
-    # Github repo
+    # GitHub repo
     issues_github_path = "sloria/marshmallow"
 
     # equivalent to
@@ -65,7 +66,7 @@ Use the ``:issue:``  and ``:pr:`` roles in your docs like so:
     See PR :pr:`58`
 
 
-Use the ``:user:`` role in your docs to link to user profiles (Github by default, but can be configured via the ``issues_user_uri`` config variable).
+Use the ``:user:`` role in your docs to link to user profiles (GitHub by default, but can be configured via the ``issues_user_uri`` config variable).
 
 .. code-block:: rst
 
@@ -93,7 +94,7 @@ Use the ``:cve:`` role to link to CVEs on https://cve.mitre.org.
 Credits
 *******
 
-Credit goes to Jeff Forcier for his work on the `releases <https://github.com/bitprophet/releases>`_ extension, which is a full-featured solution for generating changelogs. I just needed a quick way to reference Github issues in my docs, so I yoinked the bits that I needed.
+Credit goes to Jeff Forcier for his work on the `releases <https://github.com/bitprophet/releases>`_ extension, which is a full-featured solution for generating changelogs. I just needed a quick way to reference GitHub issues in my docs, so I yoinked the bits that I needed.
 
 License
 *******
@@ -141,7 +142,7 @@ Changelog
 0.2.0 (2014-12-22)
 ------------------
 
-- Add ``:user:`` role for linking to Github user profiles.
+- Add ``:user:`` role for linking to GitHub user profiles.
 
 0.1.0 (2014-12-21)
 ------------------
