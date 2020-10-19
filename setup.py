@@ -1,14 +1,13 @@
-# -*- coding: utf-8 -*-
 import re
 from setuptools import setup
 
 INSTALL_REQUIRES = ["sphinx"]
 EXTRAS_REQUIRE = {
-    "tests": ["pytest", 'mock; python_version < "3.0"'],
+    "tests": ["pytest"],
     "lint": [
         "flake8==3.8.4",
-        'flake8-bugbear==19.8.0; python_version >= "3.5"',
-        "pre-commit~=1.18",
+        "flake8-bugbear==20.1.4",
+        "pre-commit~=2.7",
     ],
 }
 EXTRAS_REQUIRE["dev"] = EXTRAS_REQUIRE["tests"] + EXTRAS_REQUIRE["lint"] + ["tox"]
@@ -19,7 +18,7 @@ def find_version(fname):
     Raises RuntimeError if not found.
     """
     version = ""
-    with open(fname, "r") as fp:
+    with open(fname) as fp:
         reg = re.compile(r'__version__ = [\'"]([^\'"]*)[\'"]')
         for line in fp:
             m = reg.match(line)
@@ -49,15 +48,15 @@ setup(
     url="https://github.com/sloria/sphinx-issues",
     license="MIT",
     keywords="sphinx issues github",
+    python_requires=">=3.6",
     classifiers=[
         "Intended Audience :: Developers",
         "License :: OSI Approved :: MIT License",
-        "Programming Language :: Python :: 2",
-        "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
         "Topic :: Software Development :: Documentation",
     ],
     py_modules=["sphinx_issues"],
