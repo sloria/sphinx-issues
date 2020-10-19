@@ -105,6 +105,12 @@ MIT licensed. See the bundled `LICENSE <https://github.com/sloria/sphinx-issues/
 Changelog
 *********
 
+2.0.0 (unreleased)
+------------------
+
+- Drop support for Python 2.7 and 3.5.
+- Test against Python 3.8 and 3.9.
+
 1.2.0 (2018-12-26)
 ------------------
 
