@@ -1,13 +1,12 @@
-# -*- coding: utf-8 -*-
 import re
 from setuptools import setup
 
 INSTALL_REQUIRES = ["sphinx"]
 EXTRAS_REQUIRE = {
-    "tests": ["pytest", 'mock; python_version < "3.0"'],
+    "tests": ["pytest"],
     "lint": [
         "flake8==3.8.4",
-        'flake8-bugbear==19.8.0',
+        "flake8-bugbear==20.1.4",
         "pre-commit~=2.7",
     ],
 }
@@ -19,7 +18,7 @@ def find_version(fname):
     Raises RuntimeError if not found.
     """
     version = ""
-    with open(fname, "r") as fp:
+    with open(fname) as fp:
         reg = re.compile(r'__version__ = [\'"]([^\'"]*)[\'"]')
         for line in fp:
             m = reg.match(line)

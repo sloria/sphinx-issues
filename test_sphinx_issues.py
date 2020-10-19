@@ -1,11 +1,10 @@
-# -*- coding: utf-8 -*-
 from tempfile import mkdtemp
 from shutil import rmtree
 
 try:
     from unittest.mock import Mock
 except ImportError:
-    from mock import Mock
+    from unittest.mock import Mock
 
 from sphinx.application import Sphinx
 from sphinx_issues import (
