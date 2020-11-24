@@ -6,7 +6,7 @@ EXTRAS_REQUIRE = {
     "tests": ["pytest"],
     "lint": [
         "flake8==3.8.4",
-        "flake8-bugbear==20.1.4",
+        "flake8-bugbear==20.11.1",
         "pre-commit~=2.7",
     ],
 }
