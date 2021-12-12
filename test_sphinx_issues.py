@@ -19,7 +19,7 @@ from sphinx_issues import (
 import pytest
 
 
-@pytest.yield_fixture(
+@pytest.fixture(
     params=[
         # Parametrize config
         {"issues_github_path": "marshmallow-code/marshmallow"},
