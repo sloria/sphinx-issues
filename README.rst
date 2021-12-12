@@ -109,7 +109,7 @@ Changelog
 ------------------
 
 - Drop support for Python 2.7 and 3.5.
-- Test against Python 3.8 and 3.9.
+- Test against Python 3.8 to 3.10.
 
 1.2.0 (2018-12-26)
 ------------------
