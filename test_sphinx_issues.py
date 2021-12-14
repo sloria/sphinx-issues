@@ -88,7 +88,7 @@ def inliner(app):
             commit_role,
             "commit",
             "123abc456def",
-            "123abc4",
+            "@123abc4",
             "https://github.com/marshmallow-code/marshmallow/commit/123abc456def",
         ),
         # External issue
