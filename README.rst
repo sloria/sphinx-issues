@@ -29,8 +29,11 @@ Installation and Configuration
     pip install sphinx-issues
 
 
-Add ``sphinx_issues`` to ``extensions`` in your ``conf.py``. If your project is on GitHub, add the ``issues_github_path`` config variable.
-Otherwise, use ``issues_uri``, ``issues_pr_uri``, and ``issues_commit_uri``.
+Add ``sphinx_issues`` to ``extensions`` in your ``conf.py``.
+
+The extension has default values for GitHub projects.
+Simply set the add the ``issues_default_group_project`` config variable and you are good
+to go:
 
 .. code-block:: python
 
@@ -42,16 +45,53 @@ Otherwise, use ``issues_uri``, ``issues_pr_uri``, and ``issues_commit_uri``.
         "sphinx_issues"
     ]
 
-    # GitHub repo
-    issues_github_path = "sloria/marshmallow"
+    # Path to GitHub repo {group}/{project}  (note that `group` is the github user)
+    issues_default_group_project = "sloria/marshmallow"
 
-    # equivalent to
-    issues_uri = "https://github.com/sloria/marshmallow/issues/{issue}"
-    issues_pr_uri = "https://github.com/sloria/marshmallow/pull/{pr}"
-    issues_commit_uri = "https://github.com/sloria/marshmallow/commit/{commit}"
+    # which is the equivalent to:
+    issues_uri = "https://github.com/{group}/{project}/issues/{issue}"
+    issues_prefix = "#"
+    issues_pr_uri = "https://github.com/{group}/{project}/pull/{pr}"
+    issues_pr_prefix = "#"
+    issues_commit_uri = "https://github.com/{group}/{project}/commit/{commit}"
+    issues_commit_prefix = "@"
+    issues_user_uri = "https://github.com/{user}"
+    issues_user_prefix = "@"
 
-Usage
-*****
+    # using this settings the placeholders group and project are filled with the
+    # following values if not defined in the
+    # group=sloria
+    # project=marshmallow
+
+As you can see the the extension is very configurable and can be used with any kind of
+issue tracker. I.e. with a custom hosed gitlab instance:
+
+.. code-block:: python
+
+    # docs/conf.py
+
+    # ...
+    extensions = [
+        # ...
+        "sphinx_issues"
+    ]
+
+    #  Default repo {group}/{project} of gitlab project
+    issues_default_group_project = "myteam/super_great_project"
+
+    # Define settings  to
+    issues_uri = "https://gitlab.company.com/{group}/{project}/-/issues/{issue}"
+    issues_prefix = "#"
+    issues_pr_uri = "https://gitlab.company.com/{group}/{project}/-/merge_requests/{pr}"
+    issues_pr_prefix = "!"
+    issues_commit_uri = "https://gitlab.company.com/{group}/{project}/-/commit/{commit}"
+    issues_commit_prefix = "@"
+    issues_user_uri = "https://gitlab.company.com/{user}"
+    issues_user_prefix = "@"
+
+
+Usage inside the documentation
+******************************
 
 Use the ``:issue:``  and ``:pr:`` roles in your docs like so:
 
@@ -68,16 +108,6 @@ Use the ``:issue:``  and ``:pr:`` roles in your docs like so:
 
 Use the ``:user:`` role in your docs to link to user profiles (GitHub by default, but can be configured via the ``issues_user_uri`` config variable).
 
-.. code-block:: rst
-
-    Thanks to :user:`bitprophet` for the idea!
-
-You can also use explicit names if you want to use a different name than the github user name:
-
-.. code-block:: rst
-
-    This change is due to :user:`Andreas Mueller <amueller>`.
-
 
 Use the ``:commit:`` role to link to commits.
 
@@ -90,6 +120,24 @@ Use the ``:cve:`` role to link to CVEs on https://cve.mitre.org.
 .. code-block:: rst
 
     :cve:`CVE-2018-17175` - Addresses possible vulnerability when...
+
+.. code-block:: rst
+
+    Thanks to :user:`bitprophet` for the idea!
+
+You can also use explicit names if you want to use a different name than the github user name:
+
+.. code-block:: rst
+
+    This change is due to :user:`Andreas Mueller <amueller>`.
+
+The syntax ``:role:`My custom title <target>``` works for all roles of this extension.
+
+It can be also used in combination with a list:
+
+.. code-block:: rst
+
+    Fix bad bug :issue:`123, (Duplicate) <199>`
 
 Credits
 *******
@@ -110,6 +158,11 @@ Changelog
 
 - Drop support for Python 2.7 and 3.5.
 - Test against Python 3.8 to 3.10.
+
+1.3.0 (unreleased)
+------------------
+- Add support for custom urls and separators `Issue #93 <https://github.com/sloria/sphinx-issues/issues/93>`_
+- Allow custom titles for all roles `Issue #116 <https://github.com/sloria/sphinx-issues/issues/116>`_
 
 1.2.0 (2018-12-26)
 ------------------
