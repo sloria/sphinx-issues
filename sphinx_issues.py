@@ -124,7 +124,7 @@ def _get_uri_template(
     except (NameError, KeyError) as e:
         raise ValueError(
             f"The '{uri_config_option}' option contains invalid placeholders. "
-            f"Only {{group}}, {{projects}} an {{{placeholder}}} are allowed ."
+            f"Only {{group}}, {{projects}} and {{{placeholder}}} are allowed ."
             f'Given was: "{format_string}".  {e}'
         ) from e
     return result
