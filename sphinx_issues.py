@@ -88,7 +88,10 @@ def _get_placeholder(uri_config_option: str) -> str:
         return uri_config_option[:-5]
 
 
-def _get_uri_template(config: Config, uri_config_option: str, default_uri: str) -> str:
+def _get_uri_template(
+    config: Config,
+    uri_config_option: str,
+) -> str:
     """
     Get a URL format template that can be filled with user information based
     on the given configuration
@@ -111,7 +114,7 @@ def _get_uri_template(config: Config, uri_config_option: str, default_uri: str) 
     Raises:
          - ValueError if the given uri contains an invalid placeholder
     """
-    format_string = str(getattr(config, uri_config_option) or default_uri)
+    format_string = str(getattr(config, uri_config_option))
     placeholder = _get_placeholder(uri_config_option)
 
     result = format_string.replace(f"{{{placeholder}}}", "{n}")
@@ -128,7 +131,6 @@ def _get_uri_template(config: Config, uri_config_option: str, default_uri: str) 
 
 
 def _get_uri(
-    default_uri: str,
     uri_config_option: str,
     config: Config,
     number: str,
@@ -137,7 +139,7 @@ def _get_uri(
     """
     Get a URI based on the given configuration and do some sanity checking
     """
-    format_string = _get_uri_template(config, uri_config_option, default_uri)
+    format_string = _get_uri_template(config, uri_config_option)
 
     url_vars = {"n": number}
 
@@ -179,12 +181,10 @@ class IssueRole:
     def __init__(
         self,
         config_prefix: str,
-        default_uri_template: str,
         pre_format_text: Callable[[Config, str], str] = None,
     ):
         self.uri_config = f"{config_prefix}_uri"
         self.separator_config = f"{config_prefix}_prefix"
-        self.default_uri_template = default_uri_template
         self.pre_format_text = pre_format_text or self.default_pre_format_text
 
     @staticmethod
@@ -223,7 +223,6 @@ class IssueRole:
             group, project, original_separator, issue_no = repo_match.groups()
             text = f"{group}/{project}{self.format_text(config, issue_no)}"
             ref = _get_uri(
-                self.default_uri_template,
                 self.uri_config,
                 config,
                 issue_no,
@@ -231,7 +230,7 @@ class IssueRole:
             )
         else:
             text = self.format_text(config, issue_no)
-            ref = _get_uri(self.default_uri_template, self.uri_config, config, issue_no)
+            ref = _get_uri(self.uri_config, config, issue_no)
         if has_explicit_title:
             return nodes.reference(text=title, refuri=ref, **options)
         else:
@@ -263,7 +262,6 @@ Examples: ::
 """
 issue_role = IssueRole(
     config_prefix="issues",
-    default_uri_template="https://github.com/{group}/{project}/issues/{issue}",
 )
 
 """Sphinx role for linking to a pull request. Must have
@@ -275,7 +273,6 @@ Examples: ::
 """
 pr_role = IssueRole(
     config_prefix="issues_pr",
-    default_uri_template="https://github.com/{group}/{project}/pull/{pr}",
 )
 
 
@@ -291,7 +288,6 @@ Examples: ::
 """
 commit_role = IssueRole(
     config_prefix="issues_commit",
-    default_uri_template="https://github.com/{group}/{project}/commit/{commit}",
     pre_format_text=format_commit_text,
 )
 
@@ -307,24 +303,35 @@ Anchor text also works: ::
 
     :user:`Steven Loria <sloria>`
 """
-user_role = IssueRole(
-    config_prefix="issues_user", default_uri_template="https://github.com/{user}"
-)
+user_role = IssueRole(config_prefix="issues_user")
 
 
 def setup(app):
     # Format template for issues URI
     # e.g. 'https://github.com/sloria/marshmallow/issues/{issue}
-    app.add_config_value("issues_uri", default=None, rebuild="html", types="[str]")
+    app.add_config_value(
+        "issues_uri",
+        default="https://github.com/{group}/{project}/issues/{issue}",
+        rebuild="html",
+        types="[str]",
+    )
     app.add_config_value("issues_prefix", default="#", rebuild="html", types="[str]")
     # Format template for PR URI
     # e.g. 'https://github.com/sloria/marshmallow/pull/{issue}
-    app.add_config_value("issues_pr_uri", default=None, rebuild="html", types="[str]")
+    app.add_config_value(
+        "issues_pr_uri",
+        default="https://github.com/{group}/{project}/pull/{pr}",
+        rebuild="html",
+        types="[str]",
+    )
     app.add_config_value("issues_pr_prefix", default="#", rebuild="html", types="[str]")
     # Format template for commit URI
     # e.g. 'https://github.com/sloria/marshmallow/commits/{commit}
     app.add_config_value(
-        "issues_commit_uri", default=None, rebuild="html", types="[str]"
+        "issues_commit_uri",
+        default="https://github.com/{group}/{project}/commit/{commit}",
+        rebuild="html",
+        types="[str]",
     )
     app.add_config_value(
         "issues_commit_prefix", default="@", rebuild="html", types="[str]"
@@ -343,7 +350,12 @@ def setup(app):
     )
     # Format template for user profile URI
     # e.g. 'https://github.com/{user}'
-    app.add_config_value("issues_user_uri", default=None, rebuild="html", types="[str]")
+    app.add_config_value(
+        "issues_user_uri",
+        default="https://github.com/{user}",
+        rebuild="html",
+        types="[str]",
+    )
     app.add_config_value(
         "issues_user_prefix", default="@", rebuild="html", types="[str]"
     )
