@@ -163,6 +163,7 @@ Changelog
 ------------------
 - Add support for custom urls and separators `Issue #93 <https://github.com/sloria/sphinx-issues/issues/93>`_
 - Allow custom titles for all roles `Issue #116 <https://github.com/sloria/sphinx-issues/issues/116>`_
+- Added setting `issues_default_group_project` as future replacement of `issues_github_path`, to reflect the now to universal nature of the extension
 
 1.2.0 (2018-12-26)
 ------------------
