@@ -91,6 +91,12 @@ Use the ``:cve:`` role to link to CVEs on https://cve.mitre.org.
 
     :cve:`CVE-2018-17175` - Addresses possible vulnerability when...
 
+Use the ``:cwe:`` role to link to CWEs on https://cwe.mitre.org.
+
+.. code-block:: rst
+
+    :cwe:`CWE-787` - The software writes data past the end, or...
+
 Credits
 *******
 
