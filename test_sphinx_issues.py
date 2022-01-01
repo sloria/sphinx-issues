@@ -1,10 +1,6 @@
 from tempfile import mkdtemp
 from shutil import rmtree
-
-try:
-    from unittest.mock import Mock
-except ImportError:
-    from unittest.mock import Mock
+from unittest.mock import Mock
 
 from sphinx.application import Sphinx
 from sphinx_issues import (
@@ -12,6 +8,7 @@ from sphinx_issues import (
     user_role,
     pr_role,
     cve_role,
+    cwe_role,
     commit_role,
     setup as issues_setup,
 )
@@ -83,6 +80,13 @@ def inliner(app):
             "CVE-2018-17175",
             "CVE-2018-17175",
             "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-17175",
+        ),
+        (
+            cwe_role,
+            "cve",
+            "CWE-787",
+            "CWE-787",
+            "https://cwe.mitre.org/data/definitions/787.html",
         ),
         (
             commit_role,

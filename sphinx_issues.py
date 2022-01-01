@@ -62,6 +62,27 @@ def cve_role(name, rawtext, text, lineno, inliner, options=None, content=None):
     return [link], []
 
 
+def cwe_role(name, rawtext, text, lineno, inliner, options=None, content=None):
+    """Sphinx role for linking to a CWE on https://cwe.mitre.org.
+
+    Examples: ::
+
+        :cwe:`CWE-787`
+
+    """
+    options = options or {}
+    content = content or []
+    has_explicit_title, title, target = split_explicit_title(text)
+
+    target = utils.unescape(target).strip()
+    title = utils.unescape(title).strip()
+    number = target[4:]
+    ref = f"https://cwe.mitre.org/data/definitions/{number}.html"
+    text = title if has_explicit_title else target
+    link = nodes.reference(text=text, refuri=ref, **options)
+    return [link], []
+
+
 class IssueRole:
 
     EXTERNAL_REPO_REGEX = re.compile(r"^(\w+)/(.+)([#@])([\w]+)$")
