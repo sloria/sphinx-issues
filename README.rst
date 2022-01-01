@@ -116,6 +116,8 @@ Changelog
 
 - Drop support for Python 2.7 and 3.5.
 - Test against Python 3.8 to 3.10.
+- Add ``:cwe:`` role for linking to CVEs on https://cwe.mitre.org.
+  Thanks @hugovk for the PR.
 
 1.2.0 (2018-12-26)
 ------------------
