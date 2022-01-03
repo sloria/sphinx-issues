@@ -5,7 +5,7 @@ INSTALL_REQUIRES = ["sphinx"]
 EXTRAS_REQUIRE = {
     "tests": ["pytest"],
     "lint": [
-        "flake8==3.8.4",
+        "flake8==3.9.2",
         "flake8-bugbear==20.11.1",
         "pre-commit~=2.7",
     ],
@@ -57,6 +57,7 @@ setup(
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
         "Topic :: Software Development :: Documentation",
     ],
     py_modules=["sphinx_issues"],

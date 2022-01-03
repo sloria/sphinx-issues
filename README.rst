@@ -91,6 +91,12 @@ Use the ``:cve:`` role to link to CVEs on https://cve.mitre.org.
 
     :cve:`CVE-2018-17175` - Addresses possible vulnerability when...
 
+Use the ``:cwe:`` role to link to CWEs on https://cwe.mitre.org.
+
+.. code-block:: rst
+
+    :cwe:`CWE-787` - The software writes data past the end, or...
+
 Credits
 *******
 
@@ -105,11 +111,13 @@ MIT licensed. See the bundled `LICENSE <https://github.com/sloria/sphinx-issues/
 Changelog
 *********
 
-2.0.0 (unreleased)
+2.0.0 (2022-01-01)
 ------------------
 
 - Drop support for Python 2.7 and 3.5.
-- Test against Python 3.8 and 3.9.
+- Test against Python 3.8 to 3.10.
+- Add ``:cwe:`` role for linking to CVEs on https://cwe.mitre.org.
+  Thanks @hugovk for the PR.
 
 1.2.0 (2018-12-26)
 ------------------
