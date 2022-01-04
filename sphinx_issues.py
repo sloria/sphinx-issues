@@ -7,7 +7,7 @@ from sphinx.config import Config
 from sphinx.util.nodes import split_explicit_title
 
 
-__version__ = "1.3.0"
+__version__ = "2.0.0"
 __author__ = "Steven Loria"
 __license__ = "MIT"
 
@@ -166,6 +166,27 @@ def _get_uri(
             f"The `{uri_config_option}` format '{format_string}' requires a "
             f"group/project to be defined in `issues_default_group_project`: {e}"
         ) from e
+
+
+def cwe_role(name, rawtext, text, lineno, inliner, options=None, content=None):
+    """Sphinx role for linking to a CWE on https://cwe.mitre.org.
+
+    Examples: ::
+
+        :cwe:`CWE-787`
+
+    """
+    options = options or {}
+    content = content or []
+    has_explicit_title, title, target = split_explicit_title(text)
+
+    target = utils.unescape(target).strip()
+    title = utils.unescape(title).strip()
+    number = target[4:]
+    ref = f"https://cwe.mitre.org/data/definitions/{number}.html"
+    text = title if has_explicit_title else target
+    link = nodes.reference(text=text, refuri=ref, **options)
+    return [link], []
 
 
 class IssueRole:
