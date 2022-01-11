@@ -333,40 +333,40 @@ def setup(app):
         "issues_uri",
         default="https://github.com/{group}/{project}/issues/{issue}",
         rebuild="html",
-        types="[str]",
+        types=[str],
     )
-    app.add_config_value("issues_prefix", default="#", rebuild="html", types="[str]")
+    app.add_config_value("issues_prefix", default="#", rebuild="html", types=[str])
     # Format template for PR URI
     # e.g. 'https://github.com/sloria/marshmallow/pull/{issue}
     app.add_config_value(
         "issues_pr_uri",
         default="https://github.com/{group}/{project}/pull/{pr}",
         rebuild="html",
-        types="[str]",
+        types=[str],
     )
-    app.add_config_value("issues_pr_prefix", default="#", rebuild="html", types="[str]")
+    app.add_config_value("issues_pr_prefix", default="#", rebuild="html", types=[str])
     # Format template for commit URI
     # e.g. 'https://github.com/sloria/marshmallow/commits/{commit}
     app.add_config_value(
         "issues_commit_uri",
         default="https://github.com/{group}/{project}/commit/{commit}",
         rebuild="html",
-        types="[str]",
+        types=[str],
     )
     app.add_config_value(
-        "issues_commit_prefix", default="@", rebuild="html", types="[str]"
+        "issues_commit_prefix", default="@", rebuild="html", types=[str]
     )
     # There is no seperator config as a format_text function is given
 
     # Default User (Group)/Project eg. 'sloria/marshmallow'
     # Called github as the package was working with github only before
     app.add_config_value(
-        "issues_github_path", default=None, rebuild="html", types="[str]"
+        "issues_github_path", default=None, rebuild="html", types=[str]
     )
     # Same as above but with new naming to reflect the new functionality
     # Only on of both can be set
     app.add_config_value(
-        "issues_default_group_project", default=None, rebuild="html", types="[str]"
+        "issues_default_group_project", default=None, rebuild="html", types=[str]
     )
     # Format template for user profile URI
     # e.g. 'https://github.com/{user}'
@@ -374,11 +374,9 @@ def setup(app):
         "issues_user_uri",
         default="https://github.com/{user}",
         rebuild="html",
-        types="[str]",
+        types=[str],
     )
-    app.add_config_value(
-        "issues_user_prefix", default="@", rebuild="html", types="[str]"
-    )
+    app.add_config_value("issues_user_prefix", default="@", rebuild="html", types=[str])
     app.add_role("issue", issue_role)
     app.add_role("pr", pr_role)
     app.add_role("user", user_role)

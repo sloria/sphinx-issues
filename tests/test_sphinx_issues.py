@@ -1,19 +1,18 @@
-from tempfile import mkdtemp
+import subprocess
+import sys
+from pathlib import Path
 from shutil import rmtree
+from tempfile import mkdtemp
 from unittest.mock import Mock
 
-from sphinx.application import Sphinx
-from sphinx_issues import (
-    issue_role,
-    user_role,
-    pr_role,
-    cve_role,
-    cwe_role,
-    commit_role,
-    setup as issues_setup,
-)
-
 import pytest
+import sphinx.application
+from sphinx_issues import commit_role, cve_role, cwe_role, issue_role, pr_role
+from sphinx_issues import setup as issues_setup
+from sphinx_issues import user_role
+
+
+BASE_DIR = Path(__file__).parent.absolute()
 
 
 @pytest.fixture(
@@ -30,8 +29,8 @@ import pytest
 )
 def app(request):
     src, doctree, confdir, outdir = [mkdtemp() for _ in range(4)]
-    Sphinx._log = lambda self, message, wfile, nonl=False: None
-    app = Sphinx(
+    sphinx.application.Sphinx._log = lambda self, message, wfile, nonl=False: None
+    app = sphinx.application.Sphinx(
         srcdir=src, confdir=None, outdir=outdir, doctreedir=doctree, buildername="html"
     )
     issues_setup(app)
@@ -180,8 +179,8 @@ def test_issue_role_multiple_with_external(inliner):
 @pytest.fixture
 def app_custom_uri():
     src, doctree, confdir, outdir = [mkdtemp() for _ in range(4)]
-    Sphinx._log = lambda self, message, wfile, nonl=False: None
-    app = Sphinx(
+    sphinx.application.Sphinx._log = lambda self, message, wfile, nonl=False: None
+    app = sphinx.application.Sphinx(
         srcdir=src, confdir=None, outdir=outdir, doctreedir=doctree, buildername="html"
     )
     issues_setup(app)
@@ -291,3 +290,69 @@ def test_roles_custom_uri(
     link = result[0][0]
     assert link.astext() == expected_text
     assert link.attributes["refuri"] == expected_url
+
+
+@pytest.fixture
+def tmp_doc_build_folder(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
+    """Generate a temporary source folder and chdir in it. Return the build folder"""
+    source = tmp_path / "source"
+    build = tmp_path / "build"
+    static = source / "_static"
+    for folder in (source, build, static):
+        folder.mkdir()
+    conf_py = BASE_DIR / "source" / "conf.py"
+    examples_rst = BASE_DIR / "source" / "examples.rst"
+
+    source.joinpath("conf.py").write_bytes(conf_py.read_bytes())
+    source.joinpath("index.rst").write_bytes(examples_rst.read_bytes())
+
+    monkeypatch.chdir(source)
+    return build
+
+
+def test_sphinx_build_integration(tmp_doc_build_folder: Path):
+    """Ensure that a simulated complete sphinx run works as expected"""
+    subprocess.run(
+        [
+            Path(sys.executable).parent.joinpath("sphinx-build"),
+            "-b",
+            "html",
+            "-W",  # turn warnings into errors
+            "-E",  # force rebuild of environment (even if we work in tmp)
+            ".",
+            str(tmp_doc_build_folder),
+        ],
+        check=True,
+    )
+
+    created = tmp_doc_build_folder / "index.html"
+    assert created.exists() and created.is_file()
+    content = created.read_text()
+    issue_url = "https://gitlab.company.com/myteam/super_great_project/-/issues/"
+    other_issue_url = "https://gitlab.company.com/sloria/konch/-/issues/"
+    pr_url = "https://gitlab.company.com/myteam/super_great_project/-/merge_requests/"
+    user_url = "https://gitlab.company.com/"
+
+    # We could do something fancy like an HTML parser or regex:
+    # Instead we keep it simple
+    expected_strings = (
+        (
+            f"See issues "
+            f'<a class="reference external" href="{issue_url}12">#12</a>, '
+            f'<a class="reference external" href="{issue_url}13">#13</a>'
+        ),
+        (
+            f"See other issues "
+            f'<a class="reference external" href="{other_issue_url}45">sloria/konch#45</a>,'
+            f' <a class="reference external" href="{issue_url}46">#46</a>'
+        ),
+        (
+            f'See PR <a class="reference external" href="{pr_url}58">!58</a>, '
+            f'thanks <a class="reference external" href="{user_url}kound">&#64;kound</a>'
+        ),
+    )
+    # Ensure that we do no check character wise but line wise
+    assert len(expected_strings) == 3
+
+    for expected in expected_strings:
+        assert expected in content
