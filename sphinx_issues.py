@@ -6,7 +6,7 @@ from docutils import nodes, utils
 from sphinx.config import Config
 from sphinx.util.nodes import split_explicit_title
 
-__version__ = "3.0.0"
+__version__ = "3.0.1"
 __author__ = "Steven Loria"
 __license__ = "MIT"
 
