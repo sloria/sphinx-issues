@@ -6,7 +6,6 @@ from docutils import nodes, utils
 from sphinx.config import Config
 from sphinx.util.nodes import split_explicit_title
 
-
 __version__ = "2.0.0"
 __author__ = "Steven Loria"
 __license__ = "MIT"
@@ -47,8 +46,8 @@ def _get_default_group_and_project(
     if old_config and new_config:
         raise ValueError(
             "Both 'issues_github_path' and 'issues_default_group_project' are set, even"
-            " so they define the same setting.  "
-            "Please only define 'issues_default_group_project'!"
+            " though they define the same setting.  "
+            "Please only define one of these."
         )
     group_and_project = new_config or old_config
 
@@ -59,9 +58,9 @@ def _get_default_group_and_project(
             return group, project
         except ValueError as e:
             raise ValueError(
-                "'issues_github_path' resp. 'issues_default_group_project need to "
-                "define a value in the form of '<group or user>/<project> "
-                f"but '{config}' was given."
+                "`issues_github_path` or `issues_default_group_project` needs to "
+                "define a value in the form of `<group or user>/<project>` "
+                f"but `{config}` was given."
             ) from e
 
     # If group and project was not set, we need to look for it within the github url
@@ -123,9 +122,9 @@ def _get_uri_template(
         result.format(project="", group="", n="")
     except (NameError, KeyError) as e:
         raise ValueError(
-            f"The '{uri_config_option}' option contains invalid placeholders. "
-            f"Only {{group}}, {{projects}} and {{{placeholder}}} are allowed ."
-            f'Given was: "{format_string}".  {e}'
+            f"The `{uri_config_option}` option contains invalid placeholders. "
+            f"Only {{group}}, {{projects}} and {{{placeholder}}} are allowed."
+            f'Invalid format string: "{format_string}".'
         ) from e
     return result
 
@@ -163,8 +162,8 @@ def _get_uri(
         # The format string was checked before, that it contains no additional not
         # supported placeholders. So this occur
         raise ValueError(
-            f"The `{uri_config_option}` format '{format_string}' requires a "
-            f"group/project to be defined in `issues_default_group_project`: {e}"
+            f"The `{uri_config_option}` format `{format_string}` requires a "
+            f"group/project to be defined in `issues_default_group_project`."
         ) from e
 
 

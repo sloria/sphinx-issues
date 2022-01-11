@@ -45,8 +45,8 @@ to go:
         "sphinx_issues"
     ]
 
-    # Path to GitHub repo {group}/{project}  (note that `group` is the github user)
-    issues_default_group_project = "sloria/marshmallow"
+    # Path to GitHub repo {group}/{project}  (note that `group` is the GitHub user or organization)
+    issues_github_path = "sloria/marshmallow"
 
     # which is the equivalent to:
     issues_uri = "https://github.com/{group}/{project}/issues/{issue}"
@@ -58,13 +58,9 @@ to go:
     issues_user_uri = "https://github.com/{user}"
     issues_user_prefix = "@"
 
-    # using this settings the placeholders group and project are filled with the
-    # following values if not defined in the
-    # group=sloria
-    # project=marshmallow
-
-As you can see the the extension is very configurable and can be used with any kind of
-issue tracker. I.e. with a custom hosed gitlab instance:
+The extension is very configurable and can be used with any kind of
+issue tracker. Here is how you could configure it for use
+with a custom hosed GitLab instance:
 
 .. code-block:: python
 
@@ -78,8 +74,6 @@ issue tracker. I.e. with a custom hosed gitlab instance:
 
     #  Default repo {group}/{project} of gitlab project
     issues_default_group_project = "myteam/super_great_project"
-
-    # Define settings  to
     issues_uri = "https://gitlab.company.com/{group}/{project}/-/issues/{issue}"
     issues_prefix = "#"
     issues_pr_uri = "https://gitlab.company.com/{group}/{project}/-/merge_requests/{pr}"
@@ -158,6 +152,13 @@ MIT licensed. See the bundled `LICENSE <https://github.com/sloria/sphinx-issues/
 
 Changelog
 *********
+
+3.0.0 (unreleased)
+------------------
+
+- The `:commit:` role now outputs with an `@` prefix.
+- Add configuration options for changing prefixes.
+- Allow `{group}` to be specified within `issues_uri`, `issues_pr_uri`, `issues_commit_uri`, and 
 
 2.0.0 (2022-01-01)
 ------------------
