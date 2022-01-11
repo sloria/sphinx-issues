@@ -6,9 +6,9 @@ sphinx-issues
   :alt: pypi badge
   :target: https://pypi.org/project/sphinx-issues/
 
-.. image:: https://badgen.net/travis/sloria/sphinx-issues
-  :alt: travis-ci status
-  :target: https://travis-ci.org/sloria/sphinx-issues
+.. image:: https://github.com/OpenASL/HowSignBot/workflows/.github/workflows/test.yml/badge.svg
+  :alt: github actions status
+  :target: .github/workflows/test.yml
 
 .. image:: https://badgen.net/badge/code%20style/black/000
    :target: https://github.com/ambv/black
