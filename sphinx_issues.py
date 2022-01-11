@@ -217,6 +217,7 @@ def setup(app):
     app.add_role("user", user_role)
     app.add_role("commit", commit_role)
     app.add_role("cve", cve_role)
+    app.add_role("cwe", cwe_role)
     return {
         "version": __version__,
         "parallel_read_safe": True,
