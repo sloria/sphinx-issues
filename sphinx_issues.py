@@ -342,7 +342,7 @@ def setup(app):
         "issues_pr_uri",
         default="https://github.com/{group}/{project}/pull/{pr}",
         rebuild="html",
-        types="[str]",
+        types=[str],
     )
     app.add_config_value("issues_pr_prefix", default="#", rebuild="html", types=[str])
     # Format template for commit URI

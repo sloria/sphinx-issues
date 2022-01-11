@@ -1,4 +1,4 @@
-This are examples that shall be rendered correctly:
+Examples:
 
     - See issues :issue:`12,13`
 
