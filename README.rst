@@ -153,7 +153,7 @@ MIT licensed. See the bundled `LICENSE <https://github.com/sloria/sphinx-issues/
 Changelog
 *********
 
-3.0.0 (unreleased)
+3.0.0 (2022-01-10)
 ------------------
 
 - The `:commit:` role now outputs with an `@` prefix.
@@ -167,9 +167,6 @@ Changelog
 - Test against Python 3.8 to 3.10.
 - Add ``:cwe:`` role for linking to CVEs on https://cwe.mitre.org.
   Thanks @hugovk for the PR.
-
-1.3.0 (unreleased)
-------------------
 - Add support for custom urls and separators `Issue #93 <https://github.com/sloria/sphinx-issues/issues/93>`_
 - Allow custom titles for all roles `Issue #116 <https://github.com/sloria/sphinx-issues/issues/116>`_
 - Added setting `issues_default_group_project` as future replacement of `issues_github_path`, to reflect the now to universal nature of the extension
