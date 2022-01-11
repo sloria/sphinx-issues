@@ -153,6 +153,11 @@ MIT licensed. See the bundled `LICENSE <https://github.com/sloria/sphinx-issues/
 Changelog
 *********
 
+3.0.1 (unreleased)
+------------------
+
+- Fix regression from 3.0.0: `exception: 'in <string>' requires string as left operand, not type`.
+
 3.0.0 (2022-01-10)
 ------------------
 
