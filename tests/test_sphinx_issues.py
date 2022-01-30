@@ -28,7 +28,7 @@ BASE_DIR = Path(__file__).parent.absolute()
     ]
 )
 def app(request):
-    src, doctree, confdir, outdir = [mkdtemp() for _ in range(4)]
+    src, doctree, confdir, outdir = (mkdtemp() for _ in range(4))
     sphinx.application.Sphinx._log = lambda self, message, wfile, nonl=False: None
     app = sphinx.application.Sphinx(
         srcdir=src, confdir=None, outdir=outdir, doctreedir=doctree, buildername="html"
@@ -178,7 +178,7 @@ def test_issue_role_multiple_with_external(inliner):
 
 @pytest.fixture
 def app_custom_uri():
-    src, doctree, confdir, outdir = [mkdtemp() for _ in range(4)]
+    src, doctree, confdir, outdir = (mkdtemp() for _ in range(4))
     sphinx.application.Sphinx._log = lambda self, message, wfile, nonl=False: None
     app = sphinx.application.Sphinx(
         srcdir=src, confdir=None, outdir=outdir, doctreedir=doctree, buildername="html"
