@@ -50,6 +50,7 @@ setup(
     keywords="sphinx issues github",
     python_requires=">=3.6",
     classifiers=[
+        "Framework :: Sphinx :: Extension",
         "Intended Audience :: Developers",
         "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 3",
