@@ -1,4 +1,5 @@
 """A Sphinx extension for linking to your project's issue tracker."""
+import importlib
 import re
 from typing import Callable, Optional, Tuple
 
@@ -380,7 +381,7 @@ def setup(app):
     app.add_role("cve", cve_role)
     app.add_role("cwe", cwe_role)
     return {
-        "version": __version__,
+        "version": importlib.metadata.version("sphinx-issues"),
         "parallel_read_safe": True,
         "parallel_write_safe": True,
     }
