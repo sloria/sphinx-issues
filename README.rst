@@ -152,6 +152,8 @@ Changelog
 3.1.0 (unreleased)
 ------------------
 
+- Default to linking GH Sponsors for the :user: role `Issue #93 <https://github.com/sloria/sphinx-issues/issues/129>`_.
+  Thanks @webknjaz for the suggestion.
 - Support Python 3.8-3.12. Older versions are no longer supported.
 - Remove `__version__`, `__author__`, and `__license__` attributes.
   Use `importlib.metadata` to read this metadata instead.
