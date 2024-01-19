@@ -1,14 +1,11 @@
 """A Sphinx extension for linking to your project's issue tracker."""
+import importlib.metadata
 import re
 from typing import Callable, Optional, Tuple
 
 from docutils import nodes, utils
 from sphinx.config import Config
 from sphinx.util.nodes import split_explicit_title
-
-__version__ = "3.0.1"
-__author__ = "Steven Loria"
-__license__ = "MIT"
 
 
 def cve_role(name, rawtext, text, lineno, inliner, options=None, content=None):
@@ -384,7 +381,7 @@ def setup(app):
     app.add_role("cve", cve_role)
     app.add_role("cwe", cwe_role)
     return {
-        "version": __version__,
+        "version": importlib.metadata.version("sphinx-issues"),
         "parallel_read_safe": True,
         "parallel_write_safe": True,
     }

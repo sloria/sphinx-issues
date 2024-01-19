@@ -41,3 +41,9 @@ output/*/index.html
 # Sphinx
 docs/_build
 README.html
+
+# mypy
+.mypy_cache/
+
+# ruff
+.ruff_cache

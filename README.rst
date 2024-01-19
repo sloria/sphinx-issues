@@ -3,16 +3,12 @@ sphinx-issues
 =============
 
 .. image:: https://badgen.net/pypi/v/sphinx-issues
-  :alt: pypi badge
-  :target: https://pypi.org/project/sphinx-issues/
+    :target: https://pypi.org/project/sphinx-issues/
+    :alt: PyPI badge
 
-.. image:: https://github.com/OpenASL/HowSignBot/workflows/.github/workflows/test.yml/badge.svg
-  :alt: github actions status
-  :target: .github/workflows/test.yml
-
-.. image:: https://badgen.net/badge/code%20style/black/000
-   :target: https://github.com/ambv/black
-   :alt: Code style: Black
+.. image:: https://github.com/sloria/sphinx-issues/actions/workflows/build-release.yml/badge.svg
+    :target: https://github.com/sloria/sphinx-issues/actions/workflows/build-release.yml
+    :alt: Build status
 
 A Sphinx extension for linking to your project's issue tracker. Includes roles for linking to issues, pull requests, user profiles, with built-in support for GitHub (though this works with other services).
 
@@ -152,6 +148,13 @@ MIT licensed. See the bundled `LICENSE <https://github.com/sloria/sphinx-issues/
 
 Changelog
 *********
+
+3.1.0 (unreleased)
+------------------
+
+- Support Python 3.8-3.12. Older versions are no longer supported.
+- Remove `__version__`, `__author__`, and `__license__` attributes.
+  Use `importlib.metadata` to read this metadata instead.
 
 3.0.1 (2022-01-11)
 ------------------
