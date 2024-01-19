@@ -27,7 +27,7 @@ Source = "https://github.com/sloria/sphinx-issues"
 
 [project.optional-dependencies]
 tests = ["pytest"]
-dev = ["sphinx-issues[tests]", "tox", "pre-commit~=3.5"]
+dev = ["sphinx-issues[tests]", "tox", "pre-commit~=3.6"]
 
 [build-system]
 requires = ["flit_core<4"]
