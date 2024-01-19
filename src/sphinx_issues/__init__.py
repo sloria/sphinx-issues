@@ -6,10 +6,6 @@ from docutils import nodes, utils
 from sphinx.config import Config
 from sphinx.util.nodes import split_explicit_title
 
-__version__ = "3.0.1"
-__author__ = "Steven Loria"
-__license__ = "MIT"
-
 
 def cve_role(name, rawtext, text, lineno, inliner, options=None, content=None):
     """Sphinx role for linking to a CVE on https://cve.mitre.org.

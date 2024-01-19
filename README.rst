@@ -157,6 +157,8 @@ Changelog
 ------------------
 
 - Support Python 3.8-3.12. Older versions are no longer supported.
+- Remove `__version__`, `__author__`, and `__license__` attributes.
+  Use `importlib.metadata` to read this metadata instead.
 
 3.0.1 (2022-01-11)
 ------------------
