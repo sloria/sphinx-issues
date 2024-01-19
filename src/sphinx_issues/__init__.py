@@ -369,7 +369,10 @@ def setup(app):
     # e.g. 'https://github.com/{user}'
     app.add_config_value(
         "issues_user_uri",
-        default="https://github.com/{user}",
+        # Default to sponsors URL.
+        # GitHub will automatically redirect to profile
+        # if Sponsors isn't set up.
+        default="https://github.com/sponsors/{user}",
         rebuild="html",
         types=[str],
     )

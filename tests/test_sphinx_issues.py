@@ -86,13 +86,13 @@ def inliner(app):
             "#42",
             "https://github.com/marshmallow-code/marshmallow/pull/42",
         ),
-        (user_role, "user", "sloria", "@sloria", "https://github.com/sloria"),
+        (user_role, "user", "sloria", "@sloria", "https://github.com/sponsors/sloria"),
         (
             user_role,
             "user",
             "Steven Loria <sloria>",
             "Steven Loria",
-            "https://github.com/sloria",
+            "https://github.com/sponsors/sloria",
         ),
         (
             cve_role,
