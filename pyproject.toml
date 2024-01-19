@@ -1,0 +1,55 @@
+[project]
+name = "sphinx-issues"
+version = "3.0.1"
+description = "A Sphinx extension for linking to your project's issue tracker"
+readme = "README.rst"
+license = { file = "LICENSE" }
+authors = [{ name = "Steven Loria", email = "sloria1@gmail.com" }]
+classifiers = [
+  "Framework :: Sphinx :: Extension",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Software Development :: Documentation",
+]
+keywords = ["sphinx", "issues", "github"]
+requires-python = ">=3.8"
+dependencies = ["sphinx"]
+
+[project.urls]
+Issues = "https://github.com/sloria/sphinx-issues/issues"
+Source = "https://github.com/sloria/sphinx-issues"
+
+[project.optional-dependencies]
+tests = ["pytest"]
+dev = ["sphinx-issues[tests]", "tox", "pre-commit~=3.5"]
+
+[build-system]
+requires = ["flit_core<4"]
+build-backend = "flit_core.buildapi"
+
+[tool.flit.sdist]
+include = ["tests/", "CONTRIBUTING.md", "NOTICE", "tox.ini"]
+exclude = ["docs/_build/"]
+
+[tool.ruff]
+src = ["src"]
+fix = true
+show-fixes = true
+show-source = true
+
+[tool.ruff.lint]
+ignore = ["E203", "E266", "E501", "E731"]
+select = [
+  "B",  # flake8-bugbear
+  "E",  # pycodestyle error
+  "F",  # pyflakes
+  "I",  # isort
+  "UP", # pyupgrade
+  "W",  # pycodestyle warning
+]
