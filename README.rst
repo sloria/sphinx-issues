@@ -149,14 +149,14 @@ MIT licensed. See the bundled `LICENSE <https://github.com/sloria/sphinx-issues/
 Changelog
 *********
 
-4.0.0 (unreleased)
+4.0.0 (2024-01-19)
 ------------------
 
-- Default to linking GH Sponsors for the :user: role `Issue #93 <https://github.com/sloria/sphinx-issues/issues/129>`_.
+- Default to linking GH Sponsors for the :user: role (`#129 <https://github.com/sloria/sphinx-issues/issues/129>`_).
   Thanks @webknjaz for the suggestion.
 - Support Python 3.8-3.12. Older versions are no longer supported.
-- *Backwards-incompatible*: Remove `__version__`, `__author__`, and `__license__` attributes.
-  Use `importlib.metadata` to read this metadata instead.
+- *Backwards-incompatible*: Remove ``__version__``, ``__author__``, and ``__license__`` attributes.
+  Use ``importlib.metadata`` to read this metadata instead.
 
 3.0.1 (2022-01-11)
 ------------------
