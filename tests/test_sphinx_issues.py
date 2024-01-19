@@ -7,10 +7,16 @@ from unittest.mock import Mock
 
 import pytest
 import sphinx.application
-from sphinx_issues import commit_role, cve_role, cwe_role, issue_role, pr_role
-from sphinx_issues import setup as issues_setup
-from sphinx_issues import user_role
 
+from sphinx_issues import (
+    commit_role,
+    cve_role,
+    cwe_role,
+    issue_role,
+    pr_role,
+    user_role,
+)
+from sphinx_issues import setup as issues_setup
 
 BASE_DIR = Path(__file__).parent.absolute()
 
