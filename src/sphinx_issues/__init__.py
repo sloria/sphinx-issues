@@ -1,4 +1,5 @@
 """A Sphinx extension for linking to your project's issue tracker."""
+
 import importlib.metadata
 import re
 from typing import Callable, Optional, Tuple
