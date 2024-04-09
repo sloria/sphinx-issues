@@ -135,6 +135,12 @@ Use the ``:cwe:`` role to link to CWEs on https://cwe.mitre.org.
 
     :cwe:`CWE-787` - The software writes data past the end, or...
 
+Use the ``:pypi:`` role to link to PyPI on https://pypi.org.
+
+.. code-block:: rst
+
+    :pypi:`sphinx-issues` - A Sphinx extension for linking to your project's issue tracker.
+
 Credits
 *******
 
