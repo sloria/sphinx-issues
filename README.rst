@@ -155,7 +155,7 @@ MIT licensed. See the bundled `LICENSE <https://github.com/sloria/sphinx-issues/
 Changelog
 *********
 
-4.1.0 (unreleased)
+4.1.0 (2024-04-14)
 ------------------
 
 - Add `:pypi:` role for linking to PyPI projects (`#144 <https://github.com/sloria/sphinx-issues/issues/144>`_).
