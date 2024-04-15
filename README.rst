@@ -135,6 +135,12 @@ Use the ``:cwe:`` role to link to CWEs on https://cwe.mitre.org.
 
     :cwe:`CWE-787` - The software writes data past the end, or...
 
+Use the ``:pypi:`` role to link to PyPI on https://pypi.org.
+
+.. code-block:: rst
+
+    :pypi:`sphinx-issues` - A Sphinx extension for linking to your project's issue tracker.
+
 Credits
 *******
 
@@ -148,6 +154,12 @@ MIT licensed. See the bundled `LICENSE <https://github.com/sloria/sphinx-issues/
 
 Changelog
 *********
+
+4.1.0 (unreleased)
+------------------
+
+- Add `:pypi:` role for linking to PyPI projects (`#144 <https://github.com/sloria/sphinx-issues/issues/144>`_).
+  Thanks @shenxianpeng for the suggestion and PR.
 
 4.0.0 (2024-01-19)
 ------------------

@@ -186,6 +186,26 @@ def cwe_role(name, rawtext, text, lineno, inliner, options=None, content=None):
     return [link], []
 
 
+def pypi_role(name, rawtext, text, lineno, inliner, options=None, content=None):
+    """Sphinx role for linking to a PyPI on https://pypi.org/.
+
+    Examples: ::
+
+        :pypi:`sphinx-issues`
+
+    """
+    options = options or {}
+    content = content or []
+    has_explicit_title, title, target = split_explicit_title(text)
+
+    target = utils.unescape(target).strip()
+    title = utils.unescape(title).strip()
+    ref = f"https://pypi.org/project/{target}"
+    text = title if has_explicit_title else target
+    link = nodes.reference(text=text, refuri=ref, **options)
+    return [link], []
+
+
 class IssueRole:
     # Symbols used to separate and issue/pull request/merge request etc
     # i.e
@@ -384,6 +404,7 @@ def setup(app):
     app.add_role("commit", commit_role)
     app.add_role("cve", cve_role)
     app.add_role("cwe", cwe_role)
+    app.add_role("pypi", pypi_role)
     return {
         "version": importlib.metadata.version("sphinx-issues"),
         "parallel_read_safe": True,

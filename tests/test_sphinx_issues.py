@@ -14,6 +14,7 @@ from sphinx_issues import (
     cwe_role,
     issue_role,
     pr_role,
+    pypi_role,
     user_role,
 )
 from sphinx_issues import setup as issues_setup
@@ -107,6 +108,13 @@ def inliner(app):
             "CWE-787",
             "CWE-787",
             "https://cwe.mitre.org/data/definitions/787.html",
+        ),
+        (
+            pypi_role,
+            "pypi",
+            "sphinx-issues",
+            "sphinx-issues",
+            "https://pypi.org/project/sphinx-issues",
         ),
         (
             commit_role,
