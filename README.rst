@@ -147,6 +147,7 @@ Changelog
 ------------------
 
 - Remove `:cwe:` and `:cve:` roles, as these are officially included in Sphinx>=8.1.0.
+- Support Python 3.9-3.13. Python 3.8 is no longer supported.
 
 4.1.0 (2024-04-14)
 ------------------
