@@ -105,12 +105,6 @@ Use the ``:commit:`` role to link to commits.
 
     Fixed in :commit:`6bb9124d5e9dbb2f7b52864c3d8af7feb1b69403`.
 
-Use the ``:cve:`` role to link to CVEs on https://cve.mitre.org.
-
-.. code-block:: rst
-
-    :cve:`CVE-2018-17175` - Addresses possible vulnerability when...
-
 .. code-block:: rst
 
     Thanks to :user:`bitprophet` for the idea!
@@ -128,12 +122,6 @@ It can be also used in combination with a list:
 .. code-block:: rst
 
     Fix bad bug :issue:`123, (Duplicate) <199>`
-
-Use the ``:cwe:`` role to link to CWEs on https://cwe.mitre.org.
-
-.. code-block:: rst
-
-    :cwe:`CWE-787` - The software writes data past the end, or...
 
 Use the ``:pypi:`` role to link to PyPI on https://pypi.org.
 
@@ -154,6 +142,11 @@ MIT licensed. See the bundled `LICENSE <https://github.com/sloria/sphinx-issues/
 
 Changelog
 *********
+
+5.0.0 (unreleased)
+------------------
+
+- Remove `:cwe:` and `:cve:` roles, as these are officially included in Sphinx>=8.1.0.
 
 4.1.0 (2024-04-14)
 ------------------

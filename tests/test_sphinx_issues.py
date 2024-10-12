@@ -10,8 +10,6 @@ import sphinx.application
 
 from sphinx_issues import (
     commit_role,
-    cve_role,
-    cwe_role,
     issue_role,
     pr_role,
     pypi_role,
@@ -94,20 +92,6 @@ def inliner(app):
             "Steven Loria <sloria>",
             "Steven Loria",
             "https://github.com/sponsors/sloria",
-        ),
-        (
-            cve_role,
-            "cve",
-            "CVE-2018-17175",
-            "CVE-2018-17175",
-            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2018-17175",
-        ),
-        (
-            cwe_role,
-            "cve",
-            "CWE-787",
-            "CWE-787",
-            "https://cwe.mitre.org/data/definitions/787.html",
         ),
         (
             pypi_role,

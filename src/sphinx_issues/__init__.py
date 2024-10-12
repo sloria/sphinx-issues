@@ -8,27 +8,6 @@ from docutils import nodes, utils
 from sphinx.config import Config
 from sphinx.util.nodes import split_explicit_title
 
-
-def cve_role(name, rawtext, text, lineno, inliner, options=None, content=None):
-    """Sphinx role for linking to a CVE on https://cve.mitre.org.
-
-    Examples: ::
-
-        :cve:`CVE-2018-17175`
-
-    """
-    options = options or {}
-    content = content or []
-    has_explicit_title, title, target = split_explicit_title(text)
-
-    target = utils.unescape(target).strip()
-    title = utils.unescape(title).strip()
-    ref = f"https://cve.mitre.org/cgi-bin/cvename.cgi?name={target}"
-    text = title if has_explicit_title else target
-    link = nodes.reference(text=text, refuri=ref, **options)
-    return [link], []
-
-
 GITHUB_USER_RE = re.compile("^https://github.com/([^/]+)/([^/]+)/.*")
 
 
@@ -163,27 +142,6 @@ def _get_uri(
             f"The `{uri_config_option}` format `{format_string}` requires a "
             f"group/project to be defined in `issues_default_group_project`."
         ) from e
-
-
-def cwe_role(name, rawtext, text, lineno, inliner, options=None, content=None):
-    """Sphinx role for linking to a CWE on https://cwe.mitre.org.
-
-    Examples: ::
-
-        :cwe:`CWE-787`
-
-    """
-    options = options or {}
-    content = content or []
-    has_explicit_title, title, target = split_explicit_title(text)
-
-    target = utils.unescape(target).strip()
-    title = utils.unescape(title).strip()
-    number = target[4:]
-    ref = f"https://cwe.mitre.org/data/definitions/{number}.html"
-    text = title if has_explicit_title else target
-    link = nodes.reference(text=text, refuri=ref, **options)
-    return [link], []
 
 
 def pypi_role(name, rawtext, text, lineno, inliner, options=None, content=None):
@@ -402,8 +360,6 @@ def setup(app):
     app.add_role("pr", pr_role)
     app.add_role("user", user_role)
     app.add_role("commit", commit_role)
-    app.add_role("cve", cve_role)
-    app.add_role("cwe", cwe_role)
     app.add_role("pypi", pypi_role)
     return {
         "version": importlib.metadata.version("sphinx-issues"),
