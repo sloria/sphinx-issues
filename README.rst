@@ -143,7 +143,7 @@ MIT licensed. See the bundled `LICENSE <https://github.com/sloria/sphinx-issues/
 Changelog
 *********
 
-5.0.0 (unreleased)
+5.0.0 (2024-10-11)
 ------------------
 
 - Remove `:cwe:` and `:cve:` roles, as these are officially included in Sphinx>=8.1.0.
