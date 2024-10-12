@@ -2,7 +2,7 @@
 
 import importlib.metadata
 import re
-from typing import Callable, Optional, Tuple
+from typing import Callable, Optional
 
 from docutils import nodes, utils
 from sphinx.config import Config
@@ -13,7 +13,7 @@ GITHUB_USER_RE = re.compile("^https://github.com/([^/]+)/([^/]+)/.*")
 
 def _get_default_group_and_project(
     config: Config, uri_config_option: str
-) -> Optional[Tuple[str, str]]:
+) -> Optional[tuple[str, str]]:
     """
     Get the default group/project or None if not set
     """
@@ -110,7 +110,7 @@ def _get_uri(
     uri_config_option: str,
     config: Config,
     number: str,
-    group_and_project: Optional[Tuple[str, str]] = None,
+    group_and_project: Optional[tuple[str, str]] = None,
 ) -> str:
     """
     Get a URI based on the given configuration and do some sanity checking
