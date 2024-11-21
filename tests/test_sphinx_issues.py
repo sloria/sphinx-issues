@@ -74,6 +74,13 @@ def inliner(app):
         (
             issue_role,
             "issue",
+            "Issue #17 (the big one) <17>",
+            "Issue #17 (the big one)",
+            "https://github.com/marshmallow-code/marshmallow/issues/17",
+        ),
+        (
+            issue_role,
+            "issue",
             "Not my business <foo/bar#42>",
             "Not my business",
             "https://github.com/foo/bar/issues/42",
@@ -106,6 +113,13 @@ def inliner(app):
             "123abc456def",
             "@123abc4",
             "https://github.com/marshmallow-code/marshmallow/commit/123abc456def",
+        ),
+        (
+            commit_role,
+            "commit",
+            "1.0.0 (2016-07-05) <170ce9>",
+            "1.0.0 (2016-07-05)",
+            "https://github.com/marshmallow-code/marshmallow/commit/170ce9",
         ),
         # External issue
         (
