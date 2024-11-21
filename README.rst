@@ -28,7 +28,7 @@ Installation and Configuration
 Add ``sphinx_issues`` to ``extensions`` in your ``conf.py``.
 
 The extension has default values for GitHub projects.
-Simply set the add the ``issues_default_group_project`` config variable and you are good
+Add the ``issues_github_path`` config variable and you are good
 to go:
 
 .. code-block:: python
@@ -54,9 +54,7 @@ to go:
     issues_user_uri = "https://github.com/{user}"
     issues_user_prefix = "@"
 
-The extension is very configurable and can be used with any kind of
-issue tracker. Here is how you could configure it for use
-with a custom hosed GitLab instance:
+You can also use this extension with other issue trackers. Here is how you could configure it for a hosted GitLab instance:
 
 .. code-block:: python
 
@@ -96,10 +94,9 @@ Use the ``:issue:``  and ``:pr:`` roles in your docs like so:
     See PR :pr:`58`
 
 
-Use the ``:user:`` role in your docs to link to user profiles (GitHub by default, but can be configured via the ``issues_user_uri`` config variable).
+The ``:user:`` role links to user profiles (GitHub by default, but can be configured via the ``issues_user_uri`` config variable).
 
-
-Use the ``:commit:`` role to link to commits.
+The ``:commit:`` role links to commits.
 
 .. code-block:: rst
 
@@ -109,7 +106,7 @@ Use the ``:commit:`` role to link to commits.
 
     Thanks to :user:`bitprophet` for the idea!
 
-You can also use explicit names if you want to use a different name than the github user name:
+You can also change the text of the hyperlink:
 
 .. code-block:: rst
 
@@ -117,17 +114,22 @@ You can also use explicit names if you want to use a different name than the git
 
 The syntax ``:role:`My custom title <target>``` works for all roles of this extension.
 
-It can be also used in combination with a list:
-
 .. code-block:: rst
 
-    Fix bad bug :issue:`123, (Duplicate) <199>`
+    Fix bad bug :issue:`123, 199 (Duplicate) <123>`
 
-Use the ``:pypi:`` role to link to PyPI on https://pypi.org.
+The ``:pypi:`` role links to project pages on `PyPI <https://pypi.org>`_.
 
 .. code-block:: rst
 
     :pypi:`sphinx-issues` - A Sphinx extension for linking to your project's issue tracker.
+
+Important note about :cwe: and :cve: roles
+******************************************
+
+The ``:cwe:`` and ``:cve:`` are included within `newer versions of Sphinx <https://www.sphinx-doc.org/en/master/usage/restructuredtext/roles.html#role-cve>`_.
+If you use these roles and are using Sphinx<8.1, you will need to
+install sphinx-issues<5.
 
 Credits
 *******
