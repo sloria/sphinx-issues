@@ -172,7 +172,7 @@ class IssueRole:
     #   - group/project@adbc1234 for commits
     ELEMENT_SEPARATORS = "#@!"
 
-    EXTERNAL_REPO_REGEX = re.compile(rf"^(\w+)/(.+)([{ELEMENT_SEPARATORS}])([\w]+)$")
+    EXTERNAL_REPO_REGEX = re.compile(rf"^(.+)/(.+)([{ELEMENT_SEPARATORS}])(\w+)$")
 
     def __init__(
         self,

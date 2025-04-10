@@ -125,25 +125,25 @@ def inliner(app):
         (
             issue_role,
             "issue",
-            "sloria/webargs#42",
-            "sloria/webargs#42",
-            "https://github.com/sloria/webargs/issues/42",
+            "slo-ria/web-args#42",
+            "slo-ria/web-args#42",
+            "https://github.com/slo-ria/web-args/issues/42",
         ),
         # External PR
         (
             pr_role,
             "pr",
-            "sloria/webargs#42",
-            "sloria/webargs#42",
-            "https://github.com/sloria/webargs/pull/42",
+            "slo-ria/web-args#42",
+            "slo-ria/web-args#42",
+            "https://github.com/slo-ria/web-args/pull/42",
         ),
         # External commit
         (
             commit_role,
             "commit",
-            "sloria/webargs@abc123def456",
-            "sloria/webargs@abc123d",
-            "https://github.com/sloria/webargs/commit/abc123def456",
+            "slo-ria/web-args@abc123def456",
+            "slo-ria/web-args@abc123d",
+            "https://github.com/slo-ria/web-args/commit/abc123def456",
         ),
     ],
 )
