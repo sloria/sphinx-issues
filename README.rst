@@ -145,6 +145,12 @@ MIT licensed. See the bundled `LICENSE <https://github.com/sloria/sphinx-issues/
 Changelog
 *********
 
+5.0.1 (unreleased)
+------------------
+
+- Properly handle user and org names with symbols in them (`#174 <https://github.com/sloria/sphinx-issues/issues/174>`_).
+  Thanks @ilan-gold for reporting and @flying-sheep for the PR.
+
 5.0.0 (2024-10-11)
 ------------------
 
