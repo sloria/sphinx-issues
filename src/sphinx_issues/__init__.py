@@ -2,16 +2,14 @@
 
 import importlib.metadata
 import re
-from typing import Callable, Optional
+from collections.abc import Callable
 
 from docutils import nodes, utils
 from sphinx.config import Config
 from sphinx.util.nodes import split_explicit_title
 
 
-def _get_default_group_and_project(
-    config: Config, uri_config_option: str
-) -> Optional[tuple[str, str]]:
+def _get_default_group_and_project(config: Config) -> tuple[str, str] | None:
     """
     Get the default group/project or None if not set
     """
@@ -99,7 +97,7 @@ def _get_uri(
     uri_config_option: str,
     config: Config,
     number: str,
-    group_and_project: Optional[tuple[str, str]] = None,
+    group_and_project: tuple[str, str] | None = None,
 ) -> str:
     """
     Get a URI based on the given configuration and do some sanity checking
@@ -108,7 +106,7 @@ def _get_uri(
 
     url_vars = {"n": number}
 
-    config_group_and_project = _get_default_group_and_project(config, uri_config_option)
+    config_group_and_project = _get_default_group_and_project(config)
     if group_and_project:
         # Group and Project defined by call
         if config_group_and_project:
@@ -166,7 +164,7 @@ class IssueRole:
     def __init__(
         self,
         config_prefix: str,
-        pre_format_text: Callable[[Config, str], str] = None,
+        pre_format_text: Callable[[Config, str], str] | None = None,
     ):
         self.uri_config = f"{config_prefix}_uri"
         self.separator_config = f"{config_prefix}_prefix"

@@ -131,6 +131,13 @@ The ``:cwe:`` and ``:cve:`` are included within `newer versions of Sphinx <https
 If you use these roles and are using Sphinx<8.1, you will need to
 install sphinx-issues<5.
 
+Sphinx version support policy
+*****************************
+
+We support the latest released version of Sphinx that is older than 1 year.
+We unofficially support earlier released versions of Sphinx, but may increase
+the lower-bound in our dependency pin without warning if needed.
+
 Credits
 *******
 
@@ -165,6 +172,8 @@ Changelog
   .. code-block:: python
 
       issues_github_path = "myuser/myproject"
+- Support Python 3.10-3.14. 3.9 is no longer supported, as it is EOL.
+- Pin lower bound of Sphinx to 8.1.0 (see "Sphinx version support policy above").
 
 5.0.1 (2025-04-10)
 ------------------
