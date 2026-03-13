@@ -2,24 +2,23 @@
 
 ## Setting up for development
 
-- Create and activate a new virtual environment
-- `pip install -e '.[dev]'`
+- Install [uv](https://docs.astral.sh/uv/getting-started/installation/)
+- `uv sync`
 - (Optional but recommended) Install the pre-commit hooks, which will
   format and lint your git staged files:
 
 ```
-# The pre-commit CLI was installed above
-pre-commit install
+uv run pre-commit install
 ```
 
 - To run tests:
 
 ```
-pytest
+uv run pytest
 ```
 
 - To run syntax checks:
 
 ```
-tox -e lint
+uv run tox -e lint
 ```

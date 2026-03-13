@@ -25,9 +25,14 @@ dependencies = ["sphinx>=8.1.0"]
 Issues = "https://github.com/sloria/sphinx-issues/issues"
 Source = "https://github.com/sloria/sphinx-issues"
 
-[project.optional-dependencies]
-tests = ["pytest"]
-dev = ["sphinx-issues[tests]", "tox", "pre-commit>=4.5,<5.0"]
+[dependency-groups]
+test = ["pytest"]
+dev = [
+  {include-group = "test"},
+  "tox",
+  "tox-uv",
+  "pre-commit>=4.5,<5.0",
+]
 
 [build-system]
 requires = ["flit_core<4"]
