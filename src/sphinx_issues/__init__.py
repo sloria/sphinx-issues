@@ -9,9 +9,7 @@ from sphinx.config import Config
 from sphinx.util.nodes import split_explicit_title
 
 
-def _get_default_group_and_project(
-    config: Config, uri_config_option: str
-) -> tuple[str, str] | None:
+def _get_default_group_and_project(config: Config) -> tuple[str, str] | None:
     """
     Get the default group/project or None if not set
     """
@@ -108,7 +106,7 @@ def _get_uri(
 
     url_vars = {"n": number}
 
-    config_group_and_project = _get_default_group_and_project(config, uri_config_option)
+    config_group_and_project = _get_default_group_and_project(config)
     if group_and_project:
         # Group and Project defined by call
         if config_group_and_project:
