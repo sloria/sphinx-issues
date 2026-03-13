@@ -4,6 +4,7 @@
 *.so
 
 # Packages
+.venv
 *.egg
 *.egg-info
 dist
