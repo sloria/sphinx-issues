@@ -1,8 +1,10 @@
 import subprocess
 import sys
+from contextlib import contextmanager
 from pathlib import Path
 from shutil import rmtree
 from tempfile import mkdtemp
+from typing import Any
 from unittest.mock import Mock
 
 import pytest
@@ -25,33 +27,52 @@ BASE_DIR = Path(__file__).parent.absolute()
         # Parametrize config
         {"issues_github_path": "marshmallow-code/marshmallow"},
         {"issues_default_group_project": "marshmallow-code/marshmallow"},
-        {
-            "issues_uri": "https://github.com/marshmallow-code/marshmallow/issues/{issue}",
-            "issues_pr_uri": "https://github.com/marshmallow-code/marshmallow/pull/{pr}",
-            "issues_commit_uri": "https://github.com/marshmallow-code/marshmallow/commit/{commit}",
-        },
     ]
 )
-def app(request):
-    src, doctree, confdir, outdir = (mkdtemp() for _ in range(4))
-    sphinx.application.Sphinx._log = lambda self, message, wfile, nonl=False: None
-    app = sphinx.application.Sphinx(
-        srcdir=src, confdir=None, outdir=outdir, doctreedir=doctree, buildername="html"
-    )
-    issues_setup(app)
-    # Stitch together as the sphinx app init() usually does w/ real conf files
-    app.config._raw_config = request.param
-    try:
-        app.config.init_values()
-    except TypeError:
-        app.config.init_values(lambda x: x)
-    yield app
-    [rmtree(x) for x in (src, doctree, confdir, outdir)]
+def app(request, app_with_config):
+    with app_with_config(request.param) as _app:
+        yield _app
+
+
+@pytest.fixture
+def app_with_config():
+    @contextmanager
+    def app_with_config_impl(config: dict[str, Any]):
+        src, doctree, confdir, outdir = (mkdtemp() for _ in range(4))
+        sphinx.application.Sphinx._log = lambda self, message, wfile, nonl=False: None
+        sphinx_app = sphinx.application.Sphinx(
+            srcdir=src,
+            confdir=None,
+            outdir=outdir,
+            doctreedir=doctree,
+            buildername="html",
+        )
+        issues_setup(sphinx_app)
+        # Stitch together as the sphinx app init() usually does w/ real conf files
+        sphinx_app.config._raw_config = config
+        try:
+            sphinx_app.config.init_values()
+        except TypeError:
+            sphinx_app.config.init_values(lambda x: x)
+        yield sphinx_app
+        [rmtree(x) for x in (src, doctree, confdir, outdir)]
+
+    return app_with_config_impl
 
 
 @pytest.fixture()
 def inliner(app):
     return Mock(document=Mock(settings=Mock(env=Mock(app=app))))
+
+
+@pytest.fixture
+def inliner_with_config(app_with_config):
+    @contextmanager
+    def inliner_with_config_impl(config: dict[str, Any]):
+        with app_with_config(config) as _app:
+            yield Mock(document=Mock(settings=Mock(env=Mock(app=_app))))
+
+    return inliner_with_config_impl
 
 
 @pytest.mark.parametrize(
@@ -368,3 +389,32 @@ def test_sphinx_build_integration(tmp_doc_build_folder: Path):
 
     for expected in expected_strings:
         assert expected in content
+
+
+def test_errors_with_neither_github_path_and_default_group_project(inliner_with_config):
+    with inliner_with_config({}) as inliner:
+        with pytest.raises(ValueError, match="requires a group/project"):
+            issue_role(
+                name=None,
+                rawtext="",
+                text="42",
+                inliner=inliner,
+                lineno=None,
+            )
+
+
+def test_errors_with_both_github_path_and_default_group_project(inliner_with_config):
+    with inliner_with_config(
+        {
+            "issues_github_path": "sloria/konch",
+            "issues_default_group_project": "sloria/environs",
+        }
+    ) as inliner:
+        with pytest.raises(ValueError, match="define one"):
+            issue_role(
+                name=None,
+                rawtext="",
+                text="42",
+                inliner=inliner,
+                lineno=None,
+            )

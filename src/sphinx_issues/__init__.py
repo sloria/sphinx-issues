@@ -8,8 +8,6 @@ from docutils import nodes, utils
 from sphinx.config import Config
 from sphinx.util.nodes import split_explicit_title
 
-GITHUB_USER_RE = re.compile("^https://github.com/([^/]+)/([^/]+)/.*")
-
 
 def _get_default_group_and_project(
     config: Config, uri_config_option: str
@@ -39,15 +37,6 @@ def _get_default_group_and_project(
                 "define a value in the form of `<group or user>/<project>` "
                 f"but `{config}` was given."
             ) from e
-
-    # If group and project was not set, we need to look for it within the github url
-    # for backward compatibility
-    if not group_and_project:
-        uri = getattr(config, uri_config_option)
-        if uri:
-            match = GITHUB_USER_RE.match(uri)
-            if match:
-                return match.groups()[0], match.groups()[1]
 
     return None
 
