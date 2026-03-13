@@ -152,7 +152,7 @@ MIT licensed. See the bundled `LICENSE <https://github.com/sloria/sphinx-issues/
 Changelog
 *********
 
-6.0.0 (unreleased)
+6.0.0 (2026-03-13)
 ------------------
 
 - *Backwards-incompatible*: Remove implicit extraction of group/project from
