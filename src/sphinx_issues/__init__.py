@@ -164,7 +164,7 @@ class IssueRole:
     def __init__(
         self,
         config_prefix: str,
-        pre_format_text: Callable[[Config, str], str] = None,
+        pre_format_text: Callable[[Config, str], str] | None = None,
     ):
         self.uri_config = f"{config_prefix}_uri"
         self.separator_config = f"{config_prefix}_prefix"
