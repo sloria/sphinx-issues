@@ -15,6 +15,7 @@ jobs:
         include:
           - { name: "3.10", python: "3.10", tox: py310 }
           - { name: "3.14", python: "3.14", tox: py314 }
+          - { name: "lowest", python: "3.10", tox: py310-lowest }
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-python@v6
