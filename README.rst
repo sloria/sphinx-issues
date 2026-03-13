@@ -165,6 +165,7 @@ Changelog
   .. code-block:: python
 
       issues_github_path = "myuser/myproject"
+- Support Python 3.10-3.14. 3.9 is no longer supported, as it is EOL.
 
 5.0.1 (2025-04-10)
 ------------------
