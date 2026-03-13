@@ -3,7 +3,6 @@
 import importlib.metadata
 import re
 from collections.abc import Callable
-from typing import Optional
 
 from docutils import nodes, utils
 from sphinx.config import Config
