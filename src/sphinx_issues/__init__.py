@@ -2,7 +2,8 @@
 
 import importlib.metadata
 import re
-from typing import Callable, Optional
+from collections.abc import Callable
+from typing import Optional
 
 from docutils import nodes, utils
 from sphinx.config import Config
@@ -11,7 +12,7 @@ from sphinx.util.nodes import split_explicit_title
 
 def _get_default_group_and_project(
     config: Config, uri_config_option: str
-) -> Optional[tuple[str, str]]:
+) -> tuple[str, str] | None:
     """
     Get the default group/project or None if not set
     """
@@ -99,7 +100,7 @@ def _get_uri(
     uri_config_option: str,
     config: Config,
     number: str,
-    group_and_project: Optional[tuple[str, str]] = None,
+    group_and_project: tuple[str, str] | None = None,
 ) -> str:
     """
     Get a URI based on the given configuration and do some sanity checking
