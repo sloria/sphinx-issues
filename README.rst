@@ -145,6 +145,27 @@ MIT licensed. See the bundled `LICENSE <https://github.com/sloria/sphinx-issues/
 Changelog
 *********
 
+6.0.0 (unreleased)
+------------------
+
+- *Backwards-incompatible*: Remove implicit extraction of group/project from
+  GitHub URLs in ``issues_uri``. If you relied on setting _only_
+  ``issues_uri`` (e.g. ``https://github.com/myuser/myproject/issues/{issue}``)
+  without also setting ``issues_github_path`` or ``issues_default_group_project``,
+  you must now explicitly set one of those options in your ``conf.py``:
+
+  Before: 
+  
+  .. code-block:: python
+
+      issues_uri = "https://github.com/myuser/myproject/issues/{issue}"
+
+  After:
+
+  .. code-block:: python
+
+      issues_github_path = "myuser/myproject"
+
 5.0.1 (2025-04-10)
 ------------------
 

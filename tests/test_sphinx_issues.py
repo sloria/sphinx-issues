@@ -27,11 +27,6 @@ BASE_DIR = Path(__file__).parent.absolute()
         # Parametrize config
         {"issues_github_path": "marshmallow-code/marshmallow"},
         {"issues_default_group_project": "marshmallow-code/marshmallow"},
-        {
-            "issues_uri": "https://github.com/marshmallow-code/marshmallow/issues/{issue}",
-            "issues_pr_uri": "https://github.com/marshmallow-code/marshmallow/pull/{pr}",
-            "issues_commit_uri": "https://github.com/marshmallow-code/marshmallow/commit/{commit}",
-        },
     ]
 )
 def app(request, app_with_config):
