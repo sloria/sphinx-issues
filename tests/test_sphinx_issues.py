@@ -122,6 +122,13 @@ def inliner_with_config(app_with_config):
             "https://github.com/sponsors/sloria",
         ),
         (
+            user_role,
+            "user",
+            "578543+webknjaz",
+            "@webknjaz",
+            "https://github.com/sponsors/webknjaz",
+        ),
+        (
             pypi_role,
             "pypi",
             "sphinx-issues",

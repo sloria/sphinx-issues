@@ -165,10 +165,16 @@ class IssueRole:
         self,
         config_prefix: str,
         pre_format_text: Callable[[Config, str], str] | None = None,
+        target_transform: Callable[[str], str] | None = None,
     ):
         self.uri_config = f"{config_prefix}_uri"
         self.separator_config = f"{config_prefix}_prefix"
         self.pre_format_text = pre_format_text or self.default_pre_format_text
+        self.target_transform = target_transform or self.default_target_transform
+
+    @staticmethod
+    def default_target_transform(target: str) -> str:
+        return target
 
     @staticmethod
     def default_pre_format_text(config: Config, text: str) -> str:
@@ -204,6 +210,7 @@ class IssueRole:
         if repo_match:
             # External repo
             group, project, original_separator, issue_no = repo_match.groups()
+            issue_no = self.target_transform(issue_no)
             text = f"{group}/{project}{self.format_text(config, issue_no)}"
             ref = _get_uri(
                 self.uri_config,
@@ -212,6 +219,7 @@ class IssueRole:
                 (group, project),
             )
         else:
+            issue_no = self.target_transform(issue_no)
             text = self.format_text(config, issue_no)
             ref = _get_uri(self.uri_config, config, issue_no)
         if has_explicit_title:
@@ -274,6 +282,17 @@ commit_role = IssueRole(
     pre_format_text=format_commit_text,
 )
 
+_USER_ID_HANDLE_RE = re.compile(r"^(\d+)\+(.+)$")
+
+
+def strip_user_id_prefix(target: str) -> str:
+    # Allow ``<id>+<handle>`` and use only the handle.
+    match = _USER_ID_HANDLE_RE.match(target)
+    if match:
+        return match.group(2)
+    return target
+
+
 """Sphinx role for linking to a user profile. Defaults to linking to
 GitHub profiles, but the profile URIS can be configured via the
 ``issues_user_uri`` config value.
@@ -285,8 +304,16 @@ Examples: ::
 Anchor text also works: ::
 
     :user:`Steven Loria <sloria>`
+
+The handle may be prefixed with a numeric user ID using ``<id>+<handle>``,
+which still renders as ``@<handle>``: ::
+
+    :user:`578543+webknjaz`
 """
-user_role = IssueRole(config_prefix="issues_user")
+user_role = IssueRole(
+    config_prefix="issues_user",
+    target_transform=strip_user_id_prefix,
+)
 
 
 def setup(app):
