@@ -12,6 +12,7 @@ import sphinx.application
 
 from sphinx_issues import (
     commit_role,
+    ghsa_role,
     issue_role,
     pr_role,
     pypi_role,
@@ -166,6 +167,20 @@ def inliner_with_config(app_with_config):
             "slo-ria/web-args@abc123d",
             "https://github.com/slo-ria/web-args/commit/abc123def456",
         ),
+        (
+            ghsa_role,
+            "ghsa",
+            "ab1c-2def-g34h",
+            "#GHSA-ab1c-2def-g34h",
+            "https://github.com/marshmallow-code/marshmallow/security/advisories/GHSA-ab1c-2def-g34h",
+        ),
+        (
+            ghsa_role,
+            "ghsa",
+            "Advisory <ab1c-2def-g34h>",
+            "Advisory",
+            "https://github.com/marshmallow-code/marshmallow/security/advisories/GHSA-ab1c-2def-g34h",
+        ),
     ],
 )
 def test_roles(inliner, role, role_name, text, expected_text, expected_url):
@@ -228,6 +243,8 @@ def app_custom_uri():
         "issues_commit_prefix": "@",
         "issues_user_uri": "https://gitlab.company.com/{user}",
         "issues_user_prefix": "@",
+        "issues_ghsa_uri": "https://gitlab.company.com/{group}/{project}/-/security/advisories/GHSA-{ghsa}",
+        "issues_ghsa_prefix": "#",
     }
     try:
         app.config.init_values()
@@ -311,6 +328,13 @@ def inliner_custom_uri(app_custom_uri):
             "sloria/webargs@abc123def456",
             "sloria/webargs@abc123d",
             "https://gitlab.company.com/sloria/webargs/-/commit/abc123def456",
+        ),
+        (
+            ghsa_role,
+            "ghsa",
+            "ab1c-2def-g34h",
+            "#GHSA-ab1c-2def-g34h",
+            "https://gitlab.company.com/myteam/super_great_project/-/security/advisories/GHSA-ab1c-2def-g34h",
         ),
     ],
 )

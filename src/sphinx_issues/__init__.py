@@ -274,6 +274,21 @@ commit_role = IssueRole(
     pre_format_text=format_commit_text,
 )
 
+
+def format_ghsa_text(config, ghsa_id):
+    return f"GHSA-{ghsa_id}"
+
+
+"""Sphinx role for linking to a GitHub security advisory. Must have
+`issues_ghsa_uri` or `issues_default_group_project` configured in ``conf.py``.
+Examples: ::
+    :ghsa:`ab1c-2def-g34h`
+"""
+ghsa_role = IssueRole(
+    config_prefix="issues_ghsa",
+    pre_format_text=format_ghsa_text,
+)
+
 """Sphinx role for linking to a user profile. Defaults to linking to
 GitHub profiles, but the profile URIS can be configured via the
 ``issues_user_uri`` config value.
@@ -319,6 +334,15 @@ def setup(app):
     app.add_config_value(
         "issues_commit_prefix", default="@", rebuild="html", types=[str]
     )
+    # Format template for GHSA URI
+    # e.g. 'https://github.com/sloria/marshmallow/security/advisories/GHSA-{ghsa}
+    app.add_config_value(
+        "issues_ghsa_uri",
+        default="https://github.com/{group}/{project}/security/advisories/GHSA-{ghsa}",
+        rebuild="html",
+        types=[str],
+    )
+    app.add_config_value("issues_ghsa_prefix", default="#", rebuild="html", types=[str])
     # There is no seperator config as a format_text function is given
 
     # Default User (Group)/Project eg. 'sloria/marshmallow'
@@ -348,6 +372,7 @@ def setup(app):
     app.add_role("user", user_role)
     app.add_role("commit", commit_role)
     app.add_role("pypi", pypi_role)
+    app.add_role("ghsa", ghsa_role)
     return {
         "version": importlib.metadata.version("sphinx-issues"),
         "parallel_read_safe": True,

@@ -124,6 +124,12 @@ The ``:pypi:`` role links to project pages on `PyPI <https://pypi.org>`_.
 
     :pypi:`sphinx-issues` - A Sphinx extension for linking to your project's issue tracker.
 
+The ``:ghsa:`` role links to a GitHub security advisory.
+
+.. code-block:: rst
+
+    Fixed in :ghsa:`ab1c-2def-g34h`.
+
 Important note about :cwe: and :cve: roles
 ******************************************
 
@@ -151,6 +157,12 @@ MIT licensed. See the bundled `LICENSE <https://github.com/sloria/sphinx-issues/
 
 Changelog
 *********
+
+6.1.0 (unreleased)
+------------------
+
+- Add ``:ghsa:`` role for linking to GitHub security advisories
+  (`#128 <https://github.com/sloria/sphinx-issues/issues/128>`_).
 
 6.0.0 (2026-03-13)
 ------------------
