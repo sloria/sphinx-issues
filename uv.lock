@@ -650,6 +650,9 @@ dev = [
     { name = "tox" },
     { name = "tox-uv" },
 ]
+lint = [
+    { name = "pre-commit" },
+]
 test = [
     { name = "pytest" },
 ]
@@ -664,6 +667,7 @@ dev = [
     { name = "tox" },
     { name = "tox-uv" },
 ]
+lint = [{ name = "pre-commit", specifier = ">=4.5,<5.0" }]
 test = [{ name = "pytest" }]
 
 [[package]]
