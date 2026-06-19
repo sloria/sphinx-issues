@@ -27,7 +27,13 @@ Source = "https://github.com/sloria/sphinx-issues"
 
 [dependency-groups]
 test = ["pytest"]
-dev = [{ include-group = "test" }, "tox", "tox-uv", "pre-commit>=4.5,<5.0"]
+lint = ["pre-commit>=4.5,<5.0"]
+dev = [
+  { include-group = "test" },
+  { include-group = "lint" },
+  "tox",
+  "tox-uv",
+]
 
 [build-system]
 requires = ["flit_core<4"]
